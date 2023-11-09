@@ -1,0 +1,58 @@
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="oi oi-graph" aria-hidden="true"></span>
+            Успеваемость
+        </div>
+        <button (click)="toggleMenu()" title="Navigation menu" class="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<hr style="margin: 0;" />
+
+<div class="nav-scrollable" [ngClass]="navMenuCssClass" (click)="toggleMenu()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="subjects">
+                <span class="oi oi-crop" aria-hidden="true"></span> Группы
+            </a>
+        </div>
+        <div class="nav-item px-3">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="teachers">
+                <span class="oi oi-people" aria-hidden="true"></span> Преподаватели
+            </a>
+        </div>
+        <div class="nav-item px-3">
+            <a class="nav-link" routerLink="fetchdata">
+                <span class="oi oi-home" aria-hidden="true"></span> Аудитории
+            </a>
+        </div>
+        <div class="nav-item px-3">
+            <a class="nav-link" routerLink="fetchdata">
+                <span class="oi oi-key" aria-hidden="true"></span> Вход
+            </a>
+        </div>
+    </nav>
+
+    <div class="footer">
+
+        <!-- <a href="https://t.me/HorstS" target="_blank">
+            <div class="mobile-advertisement">
+                <h5>Расписание. Мобильное приложение!</h5>
+                <img src="/assets/images/mobile.png" alt="" />
+            </div>
+        </a> -->
+
+        <hr style="margin: 5px 0px;" />
+        <a href="https://t.me/HorstS" target="_blank">
+            <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
+                <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Разработал Горст С.<br />ИИТИК АГТУ</h5>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,41 @@
+<div class="navigation-window">
+    <div class="navigation-window-header">
+        <h5><em>Группа 109</em></h5>
+        <button mat-mini-fab color="warn">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+
+    <hr />
+
+    <nav class="flex-column nav-items">
+        <div class="nav-item">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="/groups/dated">
+                <span class="oi oi-media-record" aria-hidden="true" style="color: lightgreen"></span> Занятия (по дням)
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="/groups/all">
+                <span class="oi oi-media-record" aria-hidden="true" style="color: deepskyblue"></span> Занятия (все)
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="/groups/exams">
+                <span class="oi oi-media-record" aria-hidden="true" style="color: mediumslateblue"></span> Экзамены
+            </a>
+        </div>
+        <div class="nav-item">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="/groups/credits">
+                <span class="oi oi-media-record" aria-hidden="true" style="color: orange"></span> Зачёты
+            </a>
+        </div>
+
+        <hr />
+
+        <div class="nav-item pt-3">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="groups/about">
+                <span class="oi oi-bar-chart" aria-hidden="true"></span> О группе
+            </a>
+        </div>
+    </nav>
+</div>
