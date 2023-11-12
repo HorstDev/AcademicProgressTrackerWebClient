@@ -38,10 +38,6 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-body {
-    background-color: #e4e2f5;
-}
-
 h1:focus {
     outline: none;
 }
@@ -161,6 +157,10 @@ a, .btn-link {
 }
 
 @media (min-width: 641px) {
+    body {
+        background-color: #e4e2f5;
+    }
+
     .schedule-container {
         display: flex;
         padding-bottom: 10px;
