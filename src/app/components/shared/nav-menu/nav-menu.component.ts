@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isNavMenuCollapsed: boolean = true;
+
+  constructor(public _authService: AuthService) {}
 
   get navMenuCssClass() : string {
     return this.isNavMenuCollapsed ? 'collapse' : ''

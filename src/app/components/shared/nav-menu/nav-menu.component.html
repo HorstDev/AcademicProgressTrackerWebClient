@@ -14,23 +14,23 @@
 
 <div class="nav-scrollable" [ngClass]="navMenuCssClass" (click)="toggleMenu()">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
             <a class="nav-link" routerLinkActive="active-link" routerLink="subjects">
                 <span class="oi oi-crop" aria-hidden="true"></span> Группы
             </a>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
             <a class="nav-link" routerLinkActive="active-link" routerLink="teachers">
                 <span class="oi oi-people" aria-hidden="true"></span> Преподаватели
             </a>
         </div>
-        <div class="nav-item px-3">
-            <a class="nav-link" routerLink="fetchdata">
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="fetchdata">
                 <span class="oi oi-home" aria-hidden="true"></span> Аудитории
             </a>
         </div>
         <div class="nav-item px-3">
-            <a class="nav-link" routerLink="fetchdata">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="auth">
                 <span class="oi oi-key" aria-hidden="true"></span> Вход
             </a>
         </div>
