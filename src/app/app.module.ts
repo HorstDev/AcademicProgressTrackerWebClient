@@ -14,7 +14,7 @@ import { ListSubjectsComponent } from './components/shared/list-subjects/list-su
 import { SubjectsComponent } from './components/pages/subjects/subjects.component';
 import { MiniNavMenuComponent } from './components/shared/mini-nav-menu/mini-nav-menu.component';
 import { LoginAndRegisterComponent } from './components/pages/login-and-register/login-and-register.component';
-import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [

@@ -42,15 +42,6 @@ export class LoginAndRegisterComponent {
         this.errorMessage = 'не удалось выполнить метод getMe()';
        },
     })
-      // (name: any) => {
-      //   console.log(name);
-      //   this.errorMessage = name;
-      //   // Ваш код для вывода имени на экран или выполнения других действий
-      // },
-      // (error) => {
-      //   this.errorMessage = 'не удалось выполнить метод getMe()';
-      //   // Ваш код для обработки ошибки, например, вывод сообщения об ошибке
-      // }
   }
 
   loggedIn() {
@@ -60,5 +51,11 @@ export class LoginAndRegisterComponent {
 
   logout() {
     this._authService.logout();
+  }
+
+  refresh() {
+    this._authService.refreshToken().subscribe((token: string) => {
+      localStorage.setItem('authToken', token);
+    });
   }
 }

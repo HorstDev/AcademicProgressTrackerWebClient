@@ -19,8 +19,12 @@ export class AuthService {
 
   public login(user: User) : Observable<string> {
     return this.http.post(`${environment.apiUrl}/Auth/login`,
-     user, {responseType: 'text'}
+     user, {responseType: 'text', withCredentials: true}
     );
+  }
+
+  public refreshToken() : Observable<string> {
+    return this.http.post(`${environment.apiUrl}/Auth/refresh-token`, {}, {responseType: 'text', withCredentials: true})
   }
 
   public getMe() : Observable<string> {

@@ -10,10 +10,10 @@
     </div>
 </div>
 
-<hr style="margin: 0;" />
-
 <div class="nav-scrollable" [ngClass]="navMenuCssClass" (click)="toggleMenu()">
     <nav class="flex-column">
+        <hr style="margin: 0;" />
+
         <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
             <a class="nav-link" routerLinkActive="active-link" routerLink="subjects">
                 <span class="oi oi-crop" aria-hidden="true"></span> Группы
