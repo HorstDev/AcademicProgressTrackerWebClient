@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment.development';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _router: Router) { }
 
   public register(user: User) : Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/Auth/register`,
@@ -37,6 +38,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('authToken');
+    this._router.navigate(['/auth']);
   }
 }
 

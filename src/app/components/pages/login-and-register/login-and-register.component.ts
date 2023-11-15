@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginAndRegisterComponent {
   user = new User();
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   constructor(private _authService: AuthService, private _router: Router) {}
 
@@ -27,10 +28,26 @@ export class LoginAndRegisterComponent {
   }
 
   login(user: User) {
-    this._authService.login(user).subscribe((token: string) => {
-      localStorage.setItem('authToken', token);
-      this._router.navigate(['/subjects']);
-    });
+    this.isLoading = true;
+
+    this._authService.login(user).subscribe({
+      next: (token: string) => {
+        localStorage.setItem('authToken', token);
+        // this._router.navigate(['/subjects']);
+      },
+      error: (err) => {
+        this.errorMessage = 'не удалось залогинить';
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    })
+
+    // this._authService.login(user).subscribe((token: string) => {
+    //   localStorage.setItem('authToken', token);
+    //   this._router.navigate(['/subjects']);
+    // });
   }
 
   getMe() {
@@ -41,6 +58,9 @@ export class LoginAndRegisterComponent {
       error: (err) => {
         this.errorMessage = 'не удалось выполнить метод getMe()';
        },
+       complete: () => {
+
+       }
     })
   }
 
