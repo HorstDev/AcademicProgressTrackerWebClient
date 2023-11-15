@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
               // Если ошибку 401 прокинуло обновление refresh токена (он устарел) 
               if (req.url.includes('/Auth/refresh-token')) {
                 this._authService.logout();
-                this._router.navigate(['/auth']);
+                this._router.navigate(['/login']);
                 return throwError(() => error);
               }
 

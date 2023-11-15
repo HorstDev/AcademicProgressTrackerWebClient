@@ -13,8 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListSubjectsComponent } from './components/shared/list-subjects/list-subjects.component';
 import { SubjectsComponent } from './components/pages/subjects/subjects.component';
 import { MiniNavMenuComponent } from './components/shared/mini-nav-menu/mini-nav-menu.component';
-import { LoginAndRegisterComponent } from './components/pages/login-and-register/login-and-register.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
+import { LoginComponent } from './components/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ListSubjectsComponent,
     SubjectsComponent,
     MiniNavMenuComponent,
-    LoginAndRegisterComponent
+    MainLayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

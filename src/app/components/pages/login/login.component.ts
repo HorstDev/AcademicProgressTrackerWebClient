@@ -4,11 +4,11 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-login-and-register',
-  templateUrl: './login-and-register.component.html',
-  styleUrls: ['./login-and-register.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginAndRegisterComponent {
+export class LoginComponent {
   user = new User();
   errorMessage: string | null = null;
   isLoading: boolean = false;
@@ -22,7 +22,7 @@ export class LoginAndRegisterComponent {
       },
       error: (err) => {
         //Ошибка регистрации
-        this.errorMessage = err.error; // Используйте error.error или другое поле для получения текста ошибки
+        this.errorMessage = err.error;
        },
     })
   }
@@ -33,7 +33,7 @@ export class LoginAndRegisterComponent {
     this._authService.login(user).subscribe({
       next: (token: string) => {
         localStorage.setItem('authToken', token);
-        // this._router.navigate(['/subjects']);
+        this._router.navigate(['/subjects']);
       },
       error: (err) => {
         this.errorMessage = 'не удалось залогинить';
@@ -43,11 +43,6 @@ export class LoginAndRegisterComponent {
         this.isLoading = false;
       }
     })
-
-    // this._authService.login(user).subscribe((token: string) => {
-    //   localStorage.setItem('authToken', token);
-    //   this._router.navigate(['/subjects']);
-    // });
   }
 
   getMe() {

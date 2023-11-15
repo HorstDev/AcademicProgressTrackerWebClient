@@ -38,22 +38,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('authToken');
-    this._router.navigate(['/auth']);
+    this._router.navigate(['/login']);
   }
 }
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthenticationService {
-//   registerUrl = "Auth/register"
-//   loginUrl = "Auth/login"
-//   weatherUrl = "Auth"
-
-//   constructor(private http: HttpClient) { }
-
-//   public register(user: Register): Observable<JwtAuth> {
-//     return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.registerUrl}`, user);
-//   }
-// }
 
