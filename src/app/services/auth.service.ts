@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment.development';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,15 @@ export class AuthService {
 
   public getMe() : Observable<string> {
     return this.http.get(`${environment.apiUrl}/Auth`, {responseType: 'text'});
+  }
+
+  public getRole() : string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decoded : any = jwtDecode(token);
+      return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    }
+    return null;
   }
 
   public loggedIn() {
