@@ -10,27 +10,27 @@
     </div>
 </div>
 
-<hr style="margin: 0;" />
-
 <div class="nav-scrollable" [ngClass]="navMenuCssClass" (click)="toggleMenu()">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <hr style="margin: 0;" />
+
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
             <a class="nav-link" routerLinkActive="active-link" routerLink="subjects">
                 <span class="oi oi-crop" aria-hidden="true"></span> Группы
             </a>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
             <a class="nav-link" routerLinkActive="active-link" routerLink="teachers">
                 <span class="oi oi-people" aria-hidden="true"></span> Преподаватели
             </a>
         </div>
-        <div class="nav-item px-3">
-            <a class="nav-link" routerLink="fetchdata">
+        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="fetchdata">
                 <span class="oi oi-home" aria-hidden="true"></span> Аудитории
             </a>
         </div>
         <div class="nav-item px-3">
-            <a class="nav-link" routerLink="fetchdata">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="login">
                 <span class="oi oi-key" aria-hidden="true"></span> Вход
             </a>
         </div>
@@ -45,12 +45,25 @@
             </div>
         </a> -->
 
-        <hr style="margin: 5px 0px;" />
-        <a href="https://t.me/HorstS" target="_blank">
-            <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
-                <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Разработал Горст С.<br />ИИТИК АГТУ</h5>
+        <div *ngIf="!_authService.loggedIn(); else loggedIn">
+            <hr style="margin: 5px 0px;" />
+            <a href="https://t.me/HorstS" target="_blank">
+                <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
+                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Разработал Горст С.<br />ИИТИК АГТУ</h5>
+                </div>
+            </a>
+        </div>
+
+        <ng-template #loggedIn>
+            <div class="d-flex">
+                <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
+                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Горст Сергей</h5>
+                </div>
+                <div>
+                    <button (click)="_authService.logout()" mat-flat-button>Выйти</button>
+                </div>
             </div>
-        </a>
+        </ng-template>
     </div>
 
 </div>
