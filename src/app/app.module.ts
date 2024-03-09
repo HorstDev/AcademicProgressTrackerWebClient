@@ -4,6 +4,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +22,7 @@ import { MainLayoutComponent } from './components/layouts/main-layout/main-layou
 import { LoginComponent } from './components/pages/login/login.component';
 import { TeacherLabManagementComponent } from './components/pages/teacher-lab-management/teacher-lab-management.component';
 import { LabCreationComponent } from './components/pages/lab-creation/lab-creation.component';
+import { DialogChoosingSubjectComponent } from './components/shared/dialog-choosing-subject/dialog-choosing-subject.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { LabCreationComponent } from './components/pages/lab-creation/lab-creati
     MainLayoutComponent,
     LoginComponent,
     TeacherLabManagementComponent,
-    LabCreationComponent
+    LabCreationComponent,
+    DialogChoosingSubjectComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +46,10 @@ import { LabCreationComponent } from './components/pages/lab-creation/lab-creati
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDialogModule,
   ],
   providers: [
     {
