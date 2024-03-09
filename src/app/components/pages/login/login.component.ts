@@ -17,7 +17,7 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this._authService.loggedIn()) {
-      this._router.navigate(['/lab-management/lab-creation']);
+      this._router.navigate(['/lab-management']);
     }
   }
 
@@ -39,7 +39,7 @@ export class LoginComponent {
     this._authService.login(user).subscribe({
       next: (token: string) => {
         localStorage.setItem('authToken', token);
-        this._router.navigate(['/lab-management/lab-creation']);
+        this._router.navigate(['/lab-management']);
       },
       error: (err) => {
         this.errorMessage = 'не удалось залогинить';

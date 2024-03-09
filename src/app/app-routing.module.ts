@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: MainLayoutComponent, children: [
     { path: 'subjects', component: SubjectsComponent }, 
     { path: 'lab-management', component: TeacherLabManagementComponent, children: [
-      {path: 'lab-creation', component: LabCreationComponent },
+      {path: 'lab-creation/:subjectId', component: LabCreationComponent },
     ] }, 
   ] }, 
   { path: 'login', component: LoginComponent }, 
