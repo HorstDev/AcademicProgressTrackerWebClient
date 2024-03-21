@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Subject } from '../models/subject';
 import { environment } from 'src/environments/environment.development';
+import { LabLesson } from '../models/labLesson';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectService {
+export class LessonService {
 
   constructor(private http: HttpClient) { }
 
-  public getTaugthSubjects() : Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${environment.apiUrl}/Subject/taught-subjects`);
+  public getLabLessons(subjectId : string) : Observable<LabLesson[]> {
+    return this.http.get<LabLesson[]>(`${environment.apiUrl}/Lesson/${subjectId}/lab-lessons`);
   }
 }

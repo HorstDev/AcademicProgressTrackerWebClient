@@ -45,8 +45,9 @@ export class TeacherLabManagementComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.selectedSubject = result;
-      if(this.selectedSubject != null)
-        this._router.navigate(['/lab-management/lab-creation', this.selectedSubject.id]);
+      if(this.selectedSubject != null) {
+        this._router.navigateByUrl('/lab-management/lab-creation/' + this.selectedSubject.id);
+      }
     });
   }
 }
