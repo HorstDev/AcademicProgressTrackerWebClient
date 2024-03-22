@@ -23,6 +23,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { TeacherLabManagementComponent } from './components/pages/teacher-lab-management/teacher-lab-management.component';
 import { LabCreationComponent } from './components/pages/lab-creation/lab-creation.component';
 import { DialogChoosingSubjectComponent } from './components/shared/dialog-choosing-subject/dialog-choosing-subject.component';
+import { LabStatusesComponent } from './components/pages/lab-statuses/lab-statuses.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DialogChoosingSubjectComponent } from './components/shared/dialog-choos
     LoginComponent,
     TeacherLabManagementComponent,
     LabCreationComponent,
-    DialogChoosingSubjectComponent
+    DialogChoosingSubjectComponent,
+    LabStatusesComponent
   ],
   imports: [
     BrowserModule,
