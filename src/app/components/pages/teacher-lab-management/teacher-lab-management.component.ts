@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'src/app/models/subject';
-import { DialogChoosingSubjectComponent } from '../dialog-choosing-subject/dialog-choosing-subject.component';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Subject } from 'src/app/models/subject';
 import { SubjectService } from 'src/app/services/subject.service';
+import { DialogChoosingSubjectComponent } from '../../shared/dialog-choosing-subject/dialog-choosing-subject.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-mini-nav-menu',
-  templateUrl: './mini-nav-menu.component.html',
-  styleUrls: ['./mini-nav-menu.component.scss'],
+  selector: 'app-teacher-lab-management',
+  templateUrl: './teacher-lab-management.component.html',
+  styleUrls: ['./teacher-lab-management.component.scss']
 })
-export class MiniNavMenuComponent implements OnInit{
+export class TeacherLabManagementComponent {
   subjects: Subject[] = [];
   selectedSubject: Subject | null = null;
 
-  constructor(private _subjectService: SubjectService, private dialog: MatDialog) { }
+  constructor(private _subjectService: SubjectService, private dialog: MatDialog, private _router: Router) { }
 
   ngOnInit(): void {
     this.getTaughtSubjects();
@@ -44,6 +45,9 @@ export class MiniNavMenuComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.selectedSubject = result;
+      if(this.selectedSubject != null) {
+        this._router.navigateByUrl('/lab-management/lab-creation/' + this.selectedSubject.id);
+      }
     });
   }
 }

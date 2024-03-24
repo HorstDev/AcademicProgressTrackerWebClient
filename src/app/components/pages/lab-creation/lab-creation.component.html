@@ -1,0 +1,60 @@
+<div>
+    <h2>Добавление</h2>
+  
+    <form (ngSubmit)="submitAddLabWorkForm()">
+      <div>
+        <label for="addedLabNumber">Lab Number:</label>
+        <input type="number" id="addedLabNumber" name="addedLabNumber" [(ngModel)]="addedLabNumber" required>
+      </div>
+  
+      <div>
+        <label for="addedLabRaiting">Lab Rating:</label>
+        <input type="number" id="addedLabRaiting" name="addedLabRaiting" [(ngModel)]="addedLabRaiting" required>
+      </div>
+  
+      <div>
+        <label>Занятия</label>
+        <div *ngFor="let labLesson of labLessons">
+            <input
+            type="checkbox"
+            id="{{labLesson.id}}"
+            name="labLessons"
+            [checked]="isCheckboxSelected(labLesson.id)"
+            [disabled]="isCheckboxDisabled(labLesson.id)"
+            (change)="onCheckboxChange(labLesson.id)"
+          />
+          <label for="{{labLesson.id}}"> Занятие №{{labLesson.number}}</label>
+        </div>
+      </div>
+  
+      <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th style="border-bottom: 2px solid black;">Номер</th>
+      <th style="border-bottom: 2px solid black;">Рейтинг</th>
+      <th style="border-bottom: 2px solid black;">Занятия</th>
+      <th style="border-bottom: 2px solid black;"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let labWork of labWorks">
+      <td style="border-bottom: 1px solid black;">{{labWork.number}}</td>
+      <td style="border-bottom: 1px solid black;">{{labWork.score}}</td>
+      <td style="border-bottom: 1px solid black;">
+        <div style="display:inline" *ngFor="let lesson of labWork.lessons">
+          {{lesson.number}} 
+        </div>
+      </td>
+      <td style="border-bottom: 1px solid black;">
+        <!-- <button (click)="deleteLabWork(labWork.id)" mat-mini-fab color="warn">
+          <mat-icon>edit</mat-icon>
+      </button> -->
+      <button (click)="deleteLabWork(labWork.id) "type="button" class="btn btn-danger"><mat-icon>delete</mat-icon></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

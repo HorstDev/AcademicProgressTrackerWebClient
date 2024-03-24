@@ -15,6 +15,12 @@ export class LoginComponent {
 
   constructor(private _authService: AuthService, private _router: Router) {}
 
+  ngOnInit() {
+    if (this._authService.loggedIn()) {
+      this._router.navigate(['/lab-management']);
+    }
+  }
+
   register(user: User) {
     this._authService.register(user).subscribe({
       next: () => { 
@@ -33,7 +39,7 @@ export class LoginComponent {
     this._authService.login(user).subscribe({
       next: (token: string) => {
         localStorage.setItem('authToken', token);
-        this._router.navigate(['/subjects']);
+        this._router.navigate(['/lab-management']);
       },
       error: (err) => {
         this.errorMessage = 'не удалось залогинить';
