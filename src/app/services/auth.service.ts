@@ -33,11 +33,20 @@ export class AuthService {
     return this.http.get(`${environment.apiUrl}/Auth`, {responseType: 'text'});
   }
 
-  public getRole() : string | null {
+  public getRoles() : string | null {
     const token = localStorage.getItem('authToken');
     if (token) {
       const decoded : any = jwtDecode(token);
       return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    }
+    return null;
+  }
+
+  public getLogin() : string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decoded : any = jwtDecode(token);
+      return decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
     }
     return null;
   }
