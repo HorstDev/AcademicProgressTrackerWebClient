@@ -135,7 +135,8 @@ export class TeacherLessonTrackerComponent implements OnInit {
   }
 
   addLessonToLessonsStart(lesson: Lesson) {
-    if(!this.lessonsToStart.includes(lesson)) {
+    // Добавить занятие в готовые для старта можем только те, которые не проведены
+    if(!this.lessonsToStart.includes(lesson) && !lesson.isStarted) {
       this.lessonsToStart.push(lesson);
     }
   }
