@@ -30,6 +30,7 @@ import { LabCreationComponent } from './components/pages/lab-creation/lab-creati
 import { DialogChoosingSubjectComponent } from './components/shared/dialog-choosing-subject/dialog-choosing-subject.component';
 import { LabStatusesComponent } from './components/pages/lab-statuses/lab-statuses.component';
 import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson-tracker/teacher-lesson-tracker.component';
+import { GroupManagementComponent } from './components/pages/group-management/group-management.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson
     LabCreationComponent,
     DialogChoosingSubjectComponent,
     LabStatusesComponent,
-    TeacherLessonTrackerComponent
+    TeacherLessonTrackerComponent,
+    GroupManagementComponent
   ],
   imports: [
     BrowserModule,

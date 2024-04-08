@@ -6,6 +6,7 @@ import { TeacherLabManagementComponent } from './components/pages/teacher-lab-ma
 import { LabCreationComponent } from './components/pages/lab-creation/lab-creation.component';
 import { LabStatusesComponent } from './components/pages/lab-statuses/lab-statuses.component';
 import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson-tracker/teacher-lesson-tracker.component';
+import { GroupManagementComponent } from './components/pages/group-management/group-management.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path: 'lab-statuses/:subjectId', component: LabStatusesComponent },
     ] }, 
     { path: 'lesson-tracker', component: TeacherLessonTrackerComponent },
+    { path: 'group-management', component: GroupManagementComponent },
   ] }, 
   { path: 'login', component: LoginComponent }, 
 ];

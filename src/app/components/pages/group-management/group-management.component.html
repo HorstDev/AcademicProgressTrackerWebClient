@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center align-items-center">
+    <input [(ngModel)]="groupNameToAdd" matInput placeholder="Группа">
+    <input (change)="onFileSelected($event)" type="file" id="fileInput" accept=".xlsx">
+    <button (click)="addNewGroup()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
+</div>
+<div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th style="border-bottom: 2px solid black;">Группа</th>
+            <th style="border-bottom: 2px solid black;">Последнее время загрузки семестра</th>
+            <th style="border-bottom: 2px solid black;">Загрузка данных</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let group of groups">
+            <td style="border-bottom: 1px solid black;">{{group.name}}</td>
+            <td style="border-bottom: 1px solid black;">
+              {{group.dateTimeOfUpdateDependenciesFromServer | date: 'dd/MM/yyyy, HH:mm':'GMT'}}
+            </td>
+            <td style="border-bottom: 1px solid black;">
+              <button (click)="openDialog(group.id)" mat-raised-button color="warn">Загрузить семестр</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+<ng-template #dialogTemplate>
+  <h2 mat-dialog-title>Выберите дисциплину</h2>
+  <mat-form-field style="width: 100%;">
+    <mat-label>Выберите дату</mat-label>
+    <input [(ngModel)]="selectedDate" (dateChange)="onDateChange($event)" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-dialog-actions>
+    <button (click)="uploadDependenciesForSelectedGroup()" mat-button cdkFocusInitial>Выбрать</button>
+  </mat-dialog-actions>
+</ng-template>
