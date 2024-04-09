@@ -1,15 +1,11 @@
 export class Lesson {
-    lessonType: LessonType = LessonType.Lecture;
-    subject?: string;
-    teacher?: string;
-    classroom?: string;
-    timeStart?: string;
-    timeEnd?: string;
-}
-
-export enum LessonType {
-    Practice = "практика",
-    Lecture = "лекция",
-    Exam = "Exam",
-    Credit = "Credit"
+    id: string = '';
+    subjectName: string = '';
+    groupName: string = '';
+    start?: Date;
+    end?: Date;
+    realStart?: Date;
+    realEnd?: Date;
+    type: string = '';
+    isStarted: boolean = false;
 }

@@ -14,24 +14,19 @@
     <nav class="flex-column">
         <hr style="margin: 0;" />
 
-        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
+        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="lab-management">
                 <span class="oi oi-crop" aria-hidden="true"></span> Лабораторные работы
             </a>
         </div>
-        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="teachers">
-                <span class="oi oi-people" aria-hidden="true"></span> Преподаватели
-            </a>
-        </div>
-        <div class="nav-item px-3" *ngIf="_authService.loggedIn()">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="fetchdata">
-                <span class="oi oi-home" aria-hidden="true"></span> Аудитории
+        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="lesson-tracker">
+                <span class="oi oi-people" aria-hidden="true"></span> Трекер занятий
             </a>
         </div>
         <div class="nav-item px-3">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="login">
-                <span class="oi oi-key" aria-hidden="true"></span> Вход
+            <a class="nav-link" routerLinkActive="active-link" routerLink="group-management">
+                <span class="oi oi-home" aria-hidden="true"></span> Управление группами
             </a>
         </div>
     </nav>
@@ -57,7 +52,7 @@
         <ng-template #loggedIn>
             <div class="d-flex">
                 <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
-                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Горст Сергей</h5>
+                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">{{userLogin}}</h5>
                 </div>
                 <div>
                     <button (click)="_authService.logout()" mat-flat-button>Выйти</button>
