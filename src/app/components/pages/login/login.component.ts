@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { UserLoginData } from 'src/app/interfaces/user/user-login-data';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  user = new User();
+  user: UserLoginData = {
+    email: '',
+    password: '',
+  };
   errorMessage: string | null = null;
   isLoading: boolean = false;
 
@@ -21,7 +24,7 @@ export class LoginComponent {
     }
   }
 
-  register(user: User) {
+  register(user: UserLoginData) {
     this._authService.register(user).subscribe({
       next: () => { 
         this.errorMessage = null;
@@ -33,7 +36,7 @@ export class LoginComponent {
     })
   }
 
-  login(user: User) {
+  login(user: UserLoginData) {
     this.isLoading = true;
 
     this._authService.login(user).subscribe({
