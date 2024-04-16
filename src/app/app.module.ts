@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,8 @@ import { DialogChoosingSubjectComponent } from './components/shared/dialog-choos
 import { LabStatusesComponent } from './components/pages/lab-statuses/lab-statuses.component';
 import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson-tracker/teacher-lesson-tracker.component';
 import { GroupManagementComponent } from './components/pages/group-management/group-management.component';
+import { UserManagementComponent } from './components/pages/user-management/user-management.component';
+import { ChangingAccountDataComponent } from './components/pages/changing-account-data/changing-account-data.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { GroupManagementComponent } from './components/pages/group-management/gr
     DialogChoosingSubjectComponent,
     LabStatusesComponent,
     TeacherLessonTrackerComponent,
-    GroupManagementComponent
+    GroupManagementComponent,
+    UserManagementComponent,
+    ChangingAccountDataComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { GroupManagementComponent } from './components/pages/group-management/gr
     MatTabsModule,
     MatListModule,
     MatSnackBarModule,
+    MatRadioModule,
   ],
   providers: [
     {

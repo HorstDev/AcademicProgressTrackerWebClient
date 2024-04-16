@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
 import { environment } from 'src/environments/environment.development';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { UserLoginData } from '../interfaces/user/user-login-data';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,23 @@ export class AuthService {
 
   constructor(private http: HttpClient, private _router: Router) { }
 
-  public register(user: User) : Observable<any> {
+  public changeAccountData(authToken: string, user: UserLoginData) : Observable<any> {
+    return this.http.put(`${environment.apiUrl}/Auth/change-account-data/${authToken}`,
+      user
+    )
+  }
+
+  public getAuthTokenFor48Hours(userId: string) : Observable<string> {
+    return this.http.get(`${environment.apiUrl}/Auth/access-token-48-hours/${userId}`, {responseType: 'text'});
+  }
+
+  public register(user: UserLoginData) : Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/Auth/register`,
      user
     );
   }
 
-  public login(user: User) : Observable<string> {
+  public login(user: UserLoginData) : Observable<string> {
     return this.http.post(`${environment.apiUrl}/Auth/login`,
      user, {responseType: 'text', withCredentials: true}
     );

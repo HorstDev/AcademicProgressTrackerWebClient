@@ -1,0 +1,74 @@
+<div class="schedule-container">
+    <div class="schedule-left-side">
+        <mat-form-field class="example-full-width">
+            <mat-label>Имя пользователя</mat-label>
+            <input [(ngModel)]="substringName" matInput>
+        </mat-form-field>
+        <button (click)="setUsersBySubstringName()" mat-mini-fab color="primary">
+            <mat-icon>search</mat-icon>
+        </button>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th style="border-bottom: 2px solid black;">Логин</th>
+                <th style="border-bottom: 2px solid black;">Роли</th>
+                <th style="border-bottom: 2px solid black;">Имена</th>
+                <th style="border-bottom: 2px solid black;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td style="border-bottom: 1px solid black;">{{user.email}}</td>
+                <td style="border-bottom: 1px solid black;">
+                    <div *ngFor="let role of user.roles">
+                        {{role.name}}
+                    </div>
+                </td>
+                <td style="border-bottom: 1px solid black;">
+                    <div *ngFor="let profile of user.profiles">
+                        {{profile.name}}
+                    </div>
+                </td>
+                <td style="border-bottom: 1px solid black;">
+                    <button (click)="setUserAsSelected(user)" mat-mini-fab color="primary"><mat-icon>search</mat-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+        <div *ngFor="let user of users">
+
+        </div>
+    </div>
+
+    <div class="schedule-right-side">
+        <div class="navigation-window" style="padding-bottom:1rem; position: sticky; top: 0;">
+            <div class="navigation-window-header">
+                <div>
+                    <h5 style="margin: 0;">Смена паролей</h5>
+                </div>
+            </div>
+        
+            <div style="padding: 0rem 0.5rem; font-size: 0.7rem">
+                <hr style="margin-bottom:1rem;"/>
+                <div *ngIf="selectedUser != null">
+                    <div class="mb-1 d-flex justify-content-center align-items-center flex-column">
+                        <b>{{selectedUser.email}}</b>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <button class="mt-2" (click)="setPasswordResetLink()" mat-raised-button color="primary">Сгенерировать ссылку для смены пароля</button>
+                    </div>
+                    <div class="mt-2" *ngIf="passwordResetLinkForSelectedUser != null" style="font-size: 0.7rem; overflow-wrap: break-word; word-wrap: break-word;">
+                        <div>
+                            {{passwordResetLinkForSelectedUser}}
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center flex-column" style="color: red">
+                            <b>действие ссылки - 48 часов</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

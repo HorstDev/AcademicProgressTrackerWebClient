@@ -7,6 +7,8 @@ import { LabCreationComponent } from './components/pages/lab-creation/lab-creati
 import { LabStatusesComponent } from './components/pages/lab-statuses/lab-statuses.component';
 import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson-tracker/teacher-lesson-tracker.component';
 import { GroupManagementComponent } from './components/pages/group-management/group-management.component';
+import { UserManagementComponent } from './components/pages/user-management/user-management.component';
+import { ChangingAccountDataComponent } from './components/pages/changing-account-data/changing-account-data.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -18,8 +20,10 @@ const routes: Routes = [
     ] }, 
     { path: 'lesson-tracker', component: TeacherLessonTrackerComponent },
     { path: 'group-management', component: GroupManagementComponent },
+    { path: 'user-management', component: UserManagementComponent },
   ] }, 
-  { path: 'login', component: LoginComponent }, 
+  { path: 'login', component: LoginComponent },
+  { path: 'changing-account-data', component: ChangingAccountDataComponent }, 
 ];
 
 @NgModule({
