@@ -22,7 +22,7 @@ const routes: Routes = [
     { path: 'lesson-tracker', component: TeacherLessonTrackerComponent },
     { path: 'group-management', component: GroupManagementComponent },
     { path: 'user-management', component: UserManagementComponent },
-    { path: 'qr', component: QrCodeViewerComponent },
+    { path: 'qr-ticket', component: QrCodeViewerComponent },
   ] }, 
   { path: 'login', component: LoginComponent },
   { path: 'changing-account-data', component: ChangingAccountDataComponent }, 

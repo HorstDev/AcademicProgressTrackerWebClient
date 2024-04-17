@@ -21,6 +21,7 @@ export class TeacherLessonTrackerComponent implements OnInit {
 
   selectedTabIndex: number = 0;
   lessonStatusIds: string[] = [];
+  successQrScannedMessage: string = '';
 
   constructor(private _lessonService: LessonService, private snackBar: MatSnackBar) {}
 
@@ -176,7 +177,9 @@ export class TeacherLessonTrackerComponent implements OnInit {
         const indexMain = this.lessonsUserStatusesData.findIndex(x => x.lessonUserStatusesWithUsers.findIndex(y => y.lessonUserStatus.id == result));
         const indexSecond = this.lessonsUserStatusesData[indexMain].lessonUserStatusesWithUsers.findIndex(x => x.lessonUserStatus.id == result);
         this.lessonsUserStatusesData[indexMain].lessonUserStatusesWithUsers[indexSecond].lessonUserStatus = lessonsStatusFromServer;
-        
+
+        this.successQrScannedMessage = `${this.lessonsUserStatusesData[indexMain].lessonUserStatusesWithUsers[indexSecond].studentName} отмечен!`
+
         this.openSnackBar('Вы успешно отмечены!', 'Ок');
       },
       error: (err) => {
@@ -190,5 +193,9 @@ export class TeacherLessonTrackerComponent implements OnInit {
 
   onTabChange(index: number) {
     this.selectedTabIndex = index;
+    if (index === 2) {
+      this.lessonStatusIds = [];
+      this.successQrScannedMessage = ''
+    }
 }
 }

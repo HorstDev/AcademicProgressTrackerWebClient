@@ -12,7 +12,7 @@ import { LessonService } from 'src/app/services/lesson.service';
 })
 export class QrCodeViewerComponent implements OnInit {
   qrCodePNG: string = '';
-  errorMessage: string | null = null;
+  errorQrMessage: string | null = null;
 
   constructor(private snackBar: MatSnackBar, private _lessonService: LessonService, private _authService: AuthService) {}
 
@@ -32,10 +32,10 @@ export class QrCodeViewerComponent implements OnInit {
         qr.make();
         // Получаем QR-код в виде строки SVG
         this.qrCodePNG = qr.createDataURL(20);
-        this.errorMessage = null;
+        this.errorQrMessage = null;
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
+        this.errorQrMessage = err.error.message;
       },
       complete: () => {
 

@@ -20,7 +20,13 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this._authService.loggedIn()) {
-      this._router.navigate(['/lab-management']);
+      const roles = this._authService.getRoles();
+      if (roles?.includes('Admin'))
+        this._router.navigate(['/group-management']);
+      else if (roles?.includes('Teacher'))
+        this._router.navigate(['/lesson-tracker']);
+      else
+        this._router.navigate(['/qr-ticket']);
     }
   }
 
@@ -42,7 +48,15 @@ export class LoginComponent {
     this._authService.login(user).subscribe({
       next: (token: string) => {
         localStorage.setItem('authToken', token);
-        this._router.navigate(['/lab-management']);
+        if (this._authService.loggedIn()) {
+          const roles = this._authService.getRoles();
+          if (roles?.includes('Admin'))
+            this._router.navigate(['/group-management']);
+          else if (roles?.includes('Teacher'))
+            this._router.navigate(['/lesson-tracker']);
+          else
+            this._router.navigate(['/qr-ticket']);
+        }
       },
       error: (err) => {
         this.errorMessage = 'не удалось залогинить';
