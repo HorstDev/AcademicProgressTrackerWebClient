@@ -23,6 +23,10 @@ export class LessonService {
     return this.http.get<Lesson[]>(`${environment.apiUrl}/Lesson/current-lessons`);
   }
 
+  public getCurrentLessonStatusForStudent() : Observable<LessonUserStatusData> {
+    return this.http.get<LessonUserStatusData>(`${environment.apiUrl}/Lesson/active-lesson-status`);
+  }
+
   public getLessonUserStatusesInProgress() : Observable<LessonUserStatusesData[]> {
     return this.http.get<LessonUserStatusesData[]>(`${environment.apiUrl}/Lesson/lessons-in-progress-user-statuses`);
   }
@@ -47,6 +51,12 @@ export class LessonService {
   public updateLessonStatuses(lessonStatuses: LessonUserStatusData[]) : Observable<LessonUserStatusData[]> {
     return this.http.put<LessonUserStatusData[]>(`${environment.apiUrl}/Lesson/update-lesson-statuses`,
     lessonStatuses
+    );
+  }
+
+  public checkLessonStatusVisited(lessonStatusId: string) : Observable<LessonUserStatusData> {
+    return this.http.put<LessonUserStatusData>(`${environment.apiUrl}/Lesson/check-lesson-status-visited/${lessonStatusId}`,
+    { }
     );
   }
 }

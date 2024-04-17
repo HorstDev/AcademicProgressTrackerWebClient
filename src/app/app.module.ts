@@ -34,6 +34,9 @@ import { TeacherLessonTrackerComponent } from './components/pages/teacher-lesson
 import { GroupManagementComponent } from './components/pages/group-management/group-management.component';
 import { UserManagementComponent } from './components/pages/user-management/user-management.component';
 import { ChangingAccountDataComponent } from './components/pages/changing-account-data/changing-account-data.component';
+import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code-viewer.component';
+
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { ChangingAccountDataComponent } from './components/pages/changing-accoun
     TeacherLessonTrackerComponent,
     GroupManagementComponent,
     UserManagementComponent,
-    ChangingAccountDataComponent
+    ChangingAccountDataComponent,
+    QrCodeViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,8 @@ import { ChangingAccountDataComponent } from './components/pages/changing-accoun
     MatListModule,
     MatSnackBarModule,
     MatRadioModule,
+
+    ZXingScannerModule,
   ],
   providers: [
     {

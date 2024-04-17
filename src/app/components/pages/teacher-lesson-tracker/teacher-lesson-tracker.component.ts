@@ -19,6 +19,9 @@ export class TeacherLessonTrackerComponent implements OnInit {
   currentLessonsIsLoading: boolean = true;
   selectedDate?: Date;
 
+  selectedTabIndex: number = 0;
+  lessonStatusIds: string[] = [];
+
   constructor(private _lessonService: LessonService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
@@ -110,6 +113,7 @@ export class TeacherLessonTrackerComponent implements OnInit {
     const lessonStatuses = this.lessonsUserStatusesData.flatMap(x => x.lessonUserStatusesWithUsers.flatMap(y => y.lessonUserStatus));
     this._lessonService.updateLessonStatuses(lessonStatuses).subscribe({
       next: (lessonsStatusesFromServer: LessonUserStatusData[]) => {
+
         this.openSnackBar('Успешно сохранено', 'Ок');
       },
       error: (err) => {
@@ -156,4 +160,35 @@ export class TeacherLessonTrackerComponent implements OnInit {
   updateVisitStatus(isSelected: boolean, lessonStatus: LessonUserStatusData): void {
     lessonStatus.isVisited = isSelected;
   }
+
+  onScanSuccess(result: string) {
+    if (this.lessonStatusIds.includes(result)) {
+      this.openSnackBar('Вы уже отмечались!', 'Ок');
+      return;
+    }
+
+    // Добавляем сразу в массив результатов, не дожидаясь ответа с сервера, т.к. может занять время, а студента надо уведомлять сразу
+    this.lessonStatusIds.push(result);
+
+    this._lessonService.checkLessonStatusVisited(result).subscribe({
+      next: (lessonsStatusFromServer: LessonUserStatusData) => {
+        // Отмечаем студента отмеченным в массиве статусов
+        const indexMain = this.lessonsUserStatusesData.findIndex(x => x.lessonUserStatusesWithUsers.findIndex(y => y.lessonUserStatus.id == result));
+        const indexSecond = this.lessonsUserStatusesData[indexMain].lessonUserStatusesWithUsers.findIndex(x => x.lessonUserStatus.id == result);
+        this.lessonsUserStatusesData[indexMain].lessonUserStatusesWithUsers[indexSecond].lessonUserStatus = lessonsStatusFromServer;
+        
+        this.openSnackBar('Вы успешно отмечены!', 'Ок');
+      },
+      error: (err) => {
+        this.openSnackBar(err.error.message, 'Ок');
+      },
+      complete: () => {
+
+      }
+    });  
+  }
+
+  onTabChange(index: number) {
+    this.selectedTabIndex = index;
+}
 }
