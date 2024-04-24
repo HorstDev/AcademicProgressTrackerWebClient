@@ -43,4 +43,18 @@ export class QrCodeViewerComponent implements OnInit {
     });     
   }
 
+  // checkLocation() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       const userLatitude = position.coords.latitude;
+  //       const userLongitude = position.coords.longitude;
+  //       const accuracy = position.coords.accuracy; // Точность в метрах
+  //     },
+  //     (error) => {
+  //       console.error('Ошибка геолокации:', error);
+  //     },
+  //     { enableHighAccuracy: true, maximumAge: 30000, timeout: 10000 }
+  //   );
+  // }
+
 }

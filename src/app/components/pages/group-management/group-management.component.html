@@ -1,4 +1,7 @@
 <div class="d-flex justify-content-center align-items-center">
+  <p style="color: red;"><b>Увеличение курсов групп производится автоматически после 1-го августа!</b></p>
+</div>
+<div class="d-flex justify-content-center align-items-center">
     <input [(ngModel)]="groupNameToAdd" matInput placeholder="Группа">
     <input (change)="onFileSelected($event)" type="file" id="fileInput" accept=".xlsx">
     <button (click)="addNewGroup()" mat-mini-fab color="primary"><mat-icon>add</mat-icon></button>
