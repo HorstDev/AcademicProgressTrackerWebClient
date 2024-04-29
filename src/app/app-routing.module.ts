@@ -10,6 +10,7 @@ import { GroupManagementComponent } from './components/pages/group-management/gr
 import { UserManagementComponent } from './components/pages/user-management/user-management.component';
 import { ChangingAccountDataComponent } from './components/pages/changing-account-data/changing-account-data.component';
 import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code-viewer.component';
+import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'group-management', component: GroupManagementComponent },
     { path: 'user-management', component: UserManagementComponent },
     { path: 'qr-ticket', component: QrCodeViewerComponent },
+    { path: 'subject-mapping', component: SubjectMappingComponent },
   ] }, 
   { path: 'login', component: LoginComponent },
   { path: 'changing-account-data', component: ChangingAccountDataComponent }, 

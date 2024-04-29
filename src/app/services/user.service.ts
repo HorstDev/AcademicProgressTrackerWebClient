@@ -14,4 +14,12 @@ export class UserService {
   public getUsersBySubstringName(substringName: string) : Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/User/${substringName}`);
   }
+
+  public makeUserAnAdmin(userId: string) : Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/User/make-user-admin/${userId}`, { });
+  }
+
+  public makeUserNoAdmin(userId: string) : Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/User/make-user-no-admin/${userId}`, { });
+  }
 }

@@ -59,6 +59,38 @@ export class UserManagementComponent implements OnInit {
     }   
   }
 
+  makeSelectedUserAnAdmin() {
+    if (this.selectedUser) {
+      this._userService.makeUserAnAdmin(this.selectedUser.id).subscribe({
+        next: (userFromServer: User) => {
+          this.selectedUser = userFromServer;
+        },
+        error: (err) => {
+          
+        },
+        complete: () => {
+          
+        }
+      });
+    }     
+  }
+
+  makeSelectedUserNoAdmin() {
+    if (this.selectedUser) {
+      this._userService.makeUserNoAdmin(this.selectedUser.id).subscribe({
+        next: (userFromServer: User) => {
+          this.selectedUser = userFromServer;
+        },
+        error: (err) => {
+          
+        },
+        complete: () => {
+          
+        }
+      });
+    }     
+  }
+
   setUserAsSelected(user: User) {
     this.selectedUser = user;
     this.passwordResetLinkForSelectedUser = null;
@@ -70,5 +102,13 @@ export class UserManagementComponent implements OnInit {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
+  }
+
+  selectedUserIsAdmin(): boolean {
+    return this.selectedUser?.roles.findIndex(x => x.name === 'Admin') != -1;
+  }
+
+  selectedUserIsTeacher(): boolean {
+    return this.selectedUser?.roles.findIndex(x => x.name === 'Teacher') != -1;
   }
 }
