@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { User } from '../models/user';
+import { Profile, User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,10 @@ export class UserService {
 
   public getUsersBySubstringName(substringName: string) : Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/User/${substringName}`);
+  }
+
+  public getTeacherProfilesBySubstringName(substringName: string) : Observable<Profile[]> {
+    return this.http.get<Profile[]>(`${environment.apiUrl}/User/teachers-by-substring/${substringName}`);
   }
 
   public makeUserAnAdmin(userId: string) : Observable<User> {

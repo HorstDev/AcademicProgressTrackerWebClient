@@ -15,6 +15,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +41,7 @@ import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
+import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +60,8 @@ import { SubjectMappingComponent } from './components/pages/subject-mapping/subj
     UserManagementComponent,
     ChangingAccountDataComponent,
     QrCodeViewerComponent,
-    SubjectMappingComponent
+    SubjectMappingComponent,
+    AboutGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +82,9 @@ import { SubjectMappingComponent } from './components/pages/subject-mapping/subj
     MatListModule,
     MatSnackBarModule,
     MatRadioModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe,
 
     ZXingScannerModule,
   ],

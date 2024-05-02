@@ -1,0 +1,100 @@
+<div class="schedule-container">
+  <div class="schedule-left-side">
+    <h5>Группа: {{group?.name}}</h5>
+    <div class="d-flex" style="justify-content: space-between;">
+      <button mat-raised-button color="primary">Загрузить текущий семестр</button>
+      <h5>Последняя загрузка семестра: {{group?.dateTimeOfUpdateDependenciesFromServer | date: 'dd/MM/yyyy, HH:mm':'GMT'}}</h5>
+    </div>
+
+    <div>
+        <table class="table"> 
+            <thead>
+              <tr>
+                <th style="color: #426696; border-bottom: 2px solid;">Название предмета на сервере</th>
+                <th style="color: #426696; border-bottom: 2px solid;">Название предмета в учебном плане</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!-- <td style="border-bottom: 1px solid black;">{{subjectMapping.subjectNameApiTable}}</td>
+                <td *ngIf="subjectMapping.subjectNameCurriculum === null else isNotNull" style="border-bottom: 1px solid black;"><b style="color: red">-</b></td>
+                <ng-template #isNotNull>
+                  <td style="border-bottom: 1px solid black;">{{subjectMapping.subjectNameCurriculum}}</td>
+                </ng-template>
+                <td style="border-bottom: 1px solid black;">
+                  <div class="d-flex">
+                    <button style="margin-right: 5px;" (click)="deleteSubjectMapping(subjectMapping.id)" type="button" class="btn btn-danger"><mat-icon>delete</mat-icon></button>
+                    <button (click)="this.subjectMappingToUpdate = subjectMapping" type="button" class="btn btn-warning"><mat-icon>edit</mat-icon></button>
+                  </div>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+
+  <div class="schedule-right-side">
+      <div class="navigation-window mb-3"  style="width: 400px; position: sticky; top: 0;">
+          <div class="navigation-window-header d-flex justify-content-center align-items-center flex-column">
+            <h5>Дисциплины</h5>
+          </div>
+          <hr />
+          <nav class="flex-column nav-items">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Преподаватель</mat-label>
+                  <input type="text"
+                         placeholder="Имя"
+                         aria-label="Преподаватель"
+                         matInput
+                         [formControl]="myControl"
+                         [matAutocomplete]="auto">
+                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                            <mat-option *ngFor="let teacher of filteredTeacherProfiles | async;" [value]="teacher.name">
+                                {{ teacher.name }}
+                            </mat-option>
+                          </mat-autocomplete>
+                </mat-form-field>
+              </form>
+              <div *ngIf="selectedTeacherName">
+                {{selectedTeacherName}}
+              </div>
+            </div>
+          </nav>
+      </div>
+
+      <!-- Кураторство -->
+
+      <div class="navigation-window"  style="width: 400px; position: sticky; top: 0;">
+        <div class="navigation-window-header d-flex justify-content-center align-items-center flex-column">
+          <h5>Кураторство</h5>
+        </div>
+        <hr />
+        <nav class="flex-column nav-items">
+          <div class="d-flex justify-content-center align-items-center flex-column">
+            <form class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Преподаватель</mat-label>
+                <input type="text"
+                       placeholder="Имя"
+                       aria-label="Преподаватель"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                          <mat-option *ngFor="let teacher of filteredTeacherProfiles | async;" [value]="teacher.name">
+                              {{ teacher.name }}
+                          </mat-option>
+                        </mat-autocomplete>
+              </mat-form-field>
+            </form>
+            <div *ngIf="selectedTeacherName">
+              {{selectedTeacherName}}
+            </div>
+          </div>
+        </nav>
+    </div>
+
+  </div>
+</div>

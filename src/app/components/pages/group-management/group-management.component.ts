@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Group } from 'src/app/models/group';
 import { GroupService } from 'src/app/services/group.service';
 
@@ -20,7 +21,7 @@ export class GroupManagementComponent implements OnInit {
   selectedGroupId: string = '';
   currentDate: Date = new Date();
 
-  constructor(private snackBar: MatSnackBar, private _groupService: GroupService, private dialog: MatDialog) {}
+  constructor(private snackBar: MatSnackBar, private _groupService: GroupService, private dialog: MatDialog, private _router: Router) {}
 
   ngOnInit(): void {
     this.setGroups()
@@ -88,6 +89,10 @@ export class GroupManagementComponent implements OnInit {
         }
       }); 
     }
+  }
+
+  navigateToAboutGroupPage(groupId: string) {
+    this._router.navigate(['/group-management/about-group/' + groupId]);
   }
 
   openDialog(groupId: string): void {

@@ -19,6 +19,10 @@ export class GroupService {
     return this.http.get<Group[]>(`${environment.apiUrl}/Group/groups-by-substring/${substring}`);
   }
 
+  public getGroupById(id: string) : Observable<Group> {
+    return this.http.get<Group>(`${environment.apiUrl}/Group/${id}`);
+  }
+
   public createGroup(groupName: string, curriculumFile: File) : Observable<any> {
     const formData = new FormData();
     formData.append('excelCurriculum', curriculumFile)
