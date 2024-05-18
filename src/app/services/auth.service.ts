@@ -43,6 +43,10 @@ export class AuthService {
     return this.http.get(`${environment.apiUrl}/Auth`, {responseType: 'text'});
   }
 
+  public removeUser(userId: string) : Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/Auth/${userId}`);
+  }
+
   public getRoles() : string | null {
     const token = localStorage.getItem('authToken');
     if (token) {

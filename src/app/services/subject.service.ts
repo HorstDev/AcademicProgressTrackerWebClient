@@ -16,6 +16,10 @@ export class SubjectService {
     return this.http.get<Subject[]>(`${environment.apiUrl}/Subject/taught-subjects`);
   }
 
+  public getSubjectsByGroupId(groupId: string) : Observable<Subject[]> {
+    return this.http.get<Subject[]>(`${environment.apiUrl}/Subject/subjects/${groupId}`);
+  }
+
   public getAllSubjectMappings() : Observable<SubjectMapping[]> {
     return this.http.get<SubjectMapping[]>(`${environment.apiUrl}/Subject/subject-mappings`);
   }

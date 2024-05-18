@@ -19,6 +19,22 @@ export class UserService {
     return this.http.get<Profile[]>(`${environment.apiUrl}/User/teachers-by-substring/${substringName}`);
   }
 
+  public getStudentProfilesByGroupId(groupId: string) : Observable<Profile[]> {
+    return this.http.get<Profile[]>(`${environment.apiUrl}/User/students/${groupId}`);
+  }
+
+  public getCuratorProfileByGroupId(groupId: string) : Observable<Profile> {
+    return this.http.get<Profile>(`${environment.apiUrl}/User/curator/${groupId}`);
+  }
+
+  public addCuratorToGroup(teacherId: string, groupId: string) : Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/User/add-curator/${teacherId}/${groupId}`, { });
+  }
+
+  public addStudentToGroup(studentName: string, groupId: string) : Observable<Profile> {
+    return this.http.post<Profile>(`${environment.apiUrl}/User/add-student/${studentName}/${groupId}`, { });
+  }
+
   public makeUserAnAdmin(userId: string) : Observable<User> {
     return this.http.put<User>(`${environment.apiUrl}/User/make-user-admin/${userId}`, { });
   }
