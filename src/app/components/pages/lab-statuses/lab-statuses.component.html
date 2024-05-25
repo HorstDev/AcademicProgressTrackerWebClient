@@ -1,8 +1,8 @@
-<table class="table">
+<table *ngIf="usersLabWorkStatusesData.length > 0 else noStatuses" class="table">
     <thead>
       <tr>
-        <th style="border-bottom: 2px solid black;">Студент</th>
-        <th style="border-bottom: 2px solid black;">Лабораторные работы</th>
+        <!-- <th style="border-bottom: 2px solid black;">Студент</th>
+        <th style="border-bottom: 2px solid black;">Лабораторные работы</th> -->
       </tr>
     </thead>
     <tbody>
@@ -19,4 +19,10 @@
       </tr>
     </tbody>
   </table>
+
+  <ng-template #noStatuses>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <h5>Лабораторные работы отсутствуют!</h5>
+    </div>
+  </ng-template>
   

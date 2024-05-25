@@ -14,10 +14,32 @@ export class TeacherLabManagementComponent {
   subjects: Subject[] = [];
   selectedSubject: Subject | null = null;
 
+  selectedTabIndex = 0;
+
   constructor(private _subjectService: SubjectService, private dialog: MatDialog, private _router: Router) { }
 
   ngOnInit(): void {
     this.getTaughtSubjects();
+  }
+
+  onTabChange(event: any): void {
+    switch (event.index) {
+      case 0:
+        if(this.selectedSubject != null) {
+          this._router.navigateByUrl('/lab-management/lab-statuses/' + this.selectedSubject.id);
+        }
+        break;
+      case 1:
+        if(this.selectedSubject != null) {
+          this._router.navigateByUrl('/lab-management/lab-creation/' + this.selectedSubject.id);
+        }
+        break;
+      default:
+        if(this.selectedSubject != null) {
+          this._router.navigateByUrl('/lab-management/lab-statuses/' + this.selectedSubject.id);
+        }
+        break;
+    }
   }
 
   getTaughtSubjects() {
@@ -34,6 +56,13 @@ export class TeacherLabManagementComponent {
     });     
   }
 
+  onSubjectChange(subject: Subject): void {
+    this.selectedSubject = subject;
+    if(this.selectedSubject != null) {
+      this._router.navigateByUrl('/lab-management/lab-statuses/' + this.selectedSubject.id);
+    }
+  }
+
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
@@ -46,8 +75,9 @@ export class TeacherLabManagementComponent {
       console.log('The dialog was closed');
       this.selectedSubject = result;
       if(this.selectedSubject != null) {
-        this._router.navigateByUrl('/lab-management/lab-creation/' + this.selectedSubject.id);
+        this._router.navigateByUrl('/lab-management/lab-statuses/' + this.selectedSubject.id);
       }
+      this.selectedTabIndex = 0;
     });
   }
 }
