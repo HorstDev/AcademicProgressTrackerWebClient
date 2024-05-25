@@ -12,6 +12,7 @@ import { ChangingAccountDataComponent } from './components/pages/changing-accoun
 import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code-viewer.component';
 import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
+import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'user-management', component: UserManagementComponent },
     { path: 'qr-ticket', component: QrCodeViewerComponent },
     { path: 'subject-mapping', component: SubjectMappingComponent },
+    { path: 'report-group', component: ReportGroupComponent },
   ] }, 
   { path: 'login', component: LoginComponent },
   { path: 'changing-account-data', component: ChangingAccountDataComponent }, 

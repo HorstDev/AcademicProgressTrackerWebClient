@@ -42,6 +42,7 @@ import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
+import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AboutGroupComponent } from './components/pages/about-group/about-group.
     ChangingAccountDataComponent,
     QrCodeViewerComponent,
     SubjectMappingComponent,
-    AboutGroupComponent
+    AboutGroupComponent,
+    ReportGroupComponent
   ],
   imports: [
     BrowserModule,

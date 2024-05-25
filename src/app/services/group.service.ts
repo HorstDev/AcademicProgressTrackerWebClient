@@ -23,6 +23,10 @@ export class GroupService {
     return this.http.get<Group>(`${environment.apiUrl}/Group/${id}`);
   }
 
+  public getSupervisedGroups() : Observable<Group[]> {
+    return this.http.get<Group[]>(`${environment.apiUrl}/Group/supervised-groups`);
+  }
+
   public createGroup(groupName: string, curriculumFile: File) : Observable<any> {
     const formData = new FormData();
     formData.append('excelCurriculum', curriculumFile)
