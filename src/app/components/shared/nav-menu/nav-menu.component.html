@@ -14,21 +14,6 @@
     <nav class="flex-column">
         <hr style="margin: 0;" />
 
-        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="lab-management">
-                <span class="oi oi-crop" aria-hidden="true"></span> Лабораторные работы
-            </a>
-        </div>
-        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="lesson-tracker">
-                <span class="oi oi-people" aria-hidden="true"></span> Трекер занятий
-            </a>
-        </div>
-        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="report-group">
-                <span class="oi oi-people" aria-hidden="true"></span> Кураторство
-            </a>
-        </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Admin')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="group-management">
                 <span class="oi oi-home" aria-hidden="true"></span> Группы
@@ -42,6 +27,26 @@
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Admin')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="subject-mapping">
                 <span class="oi oi-home" aria-hidden="true"></span> Маппинг предметов
+            </a>
+        </div>
+        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="lesson-tracker">
+                <span class="oi oi-people" aria-hidden="true"></span> Трекер занятий
+            </a>
+        </div>
+        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="lab-management">
+                <span class="oi oi-crop" aria-hidden="true"></span> Лабораторные работы
+            </a>
+        </div>
+        <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="report-group">
+                <span class="oi oi-people" aria-hidden="true"></span> Кураторство
+            </a>
+        </div> -->
+        <div class="nav-item px-3" *ngIf="userRoles && (userRoles.includes('Admin') || userRoles.includes('Teacher'))">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="report-group">
+                <span class="oi oi-people" aria-hidden="true"></span> Отчеты
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Student')">

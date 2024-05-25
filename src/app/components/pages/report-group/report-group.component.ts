@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupReport } from 'src/app/interfaces/report/group-report';
 import { Group } from 'src/app/models/group';
+import { AuthService } from 'src/app/services/auth.service';
 import { GroupService } from 'src/app/services/group.service';
 import { ReportService } from 'src/app/services/report.service';
 
@@ -16,10 +17,31 @@ export class ReportGroupComponent implements OnInit {
   selectedScore: number = -1;
   selectedNotVisitedCount: number = 10000;
 
-  constructor(private groupService: GroupService, private reportService: ReportService) { }
+  userRoles: string | null = '';
+
+  constructor(private groupService: GroupService, private reportService: ReportService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.setSupervisedGroup();
+    this.userRoles = this.authService.getRoles();
+    if (this.userRoles && this.userRoles.includes('Admin'))
+      this.setAllGroups();
+    else
+      this.setSupervisedGroup();
+  }
+
+  setAllGroups(): void {
+    this.groupService.getAllGroups().subscribe({
+      next: (groupsFromServer: Group[]) => {
+        this.groups = groupsFromServer;
+        // this.setReportForGroup(groupFromServer.id);
+      },
+      error: (err) => {
+        
+      },
+      complete: () => {
+
+      }
+    });     
   }
 
   setSupervisedGroup(): void {

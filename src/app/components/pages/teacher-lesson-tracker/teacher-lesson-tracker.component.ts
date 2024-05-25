@@ -162,6 +162,24 @@ export class TeacherLessonTrackerComponent implements OnInit {
     lessonStatus.isVisited = isSelected;
   }
 
+  // Обновление статуса занятия с отправкой на сервер (сделано для того, чтобы сразу при отметке студента производилась отправка)
+  // на сервер без дополнительных нажатий кнопок (может быть затратно для сервера)
+  updateVisitStatusWithRequestToServer(isSelected: boolean, lessonStatus: LessonUserStatusData): void {
+    lessonStatus.isVisited = isSelected;
+    const arrayOfStatuses: LessonUserStatusData[] = [lessonStatus]
+    this._lessonService.updateLessonStatuses(arrayOfStatuses).subscribe({
+      next: (lessonsStatusesFromServer: LessonUserStatusData[]) => {
+        
+      },
+      error: (err) => {
+        this.openSnackBar('Ошибка! Не удалось сохранить данные', 'Ок');
+      },
+      complete: () => {
+
+      }
+    });  
+  }
+
   onScanSuccess(result: string) {
     if (this.lessonStatusIds.includes(result)) {
       this.openSnackBar('Вы уже отмечались!', 'Ок');
@@ -197,5 +215,10 @@ export class TeacherLessonTrackerComponent implements OnInit {
       this.lessonStatusIds = [];
       this.successQrScannedMessage = ''
     }
-}
+  }
+
+  startedLessonsHasPractice(): boolean {
+    const index = this.lessonsUserStatusesData.findIndex(x => x.lesson.type == 'PracticeLesson');
+    return index != -1;
+  }
 }
