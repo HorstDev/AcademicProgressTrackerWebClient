@@ -2,7 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, catchError, debounceTime, map, of, startWith, switchMap } from 'rxjs';
@@ -22,6 +22,9 @@ import { UserService } from 'src/app/services/user.service';
 export class AboutGroupComponent implements OnInit {
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
   @ViewChild('dialogTemplateJson') dialogTemplateJson!: TemplateRef<any>;
+  @ViewChild('dialogDeleteTemplate') dialogDeleteTemplate!: TemplateRef<any>;
+  dialogRef!: MatDialogRef<any>;
+  
   // Autocomplete
   myControl = new FormControl('');
   curatorProfiles: Profile[] = [];
@@ -174,7 +177,7 @@ export class AboutGroupComponent implements OnInit {
     }
     this._userService.addStudentToGroup(this.studentNameToAdd, this.groupId).subscribe({
       next: (studentProfileFromServer: Profile) => {
-        this.students.push(studentProfileFromServer);
+        this.setStudentProfiles();
         this.openSnackBar('Студент успешно добавлен', 'Ок');
         this.studentNameToAdd = '';
       },
@@ -188,17 +191,26 @@ export class AboutGroupComponent implements OnInit {
   }
 
   removeUser(userId: string) {
-    this._authService.removeUser(userId).subscribe({
-      next: () => {
-        this.setStudentProfiles();
-      },
-      error: (err) => {
-        this.openSnackBar('Ошибка при удалении!', 'Ок');
-      },
-      complete: () => {
-        
+    this.dialogRef = this.dialog.open(this.dialogDeleteTemplate, {
+      width: '250px',
+      data: {  }
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result === 'yes') {
+        this._authService.removeUser(userId).subscribe({
+          next: () => {
+            this.setStudentProfiles();
+          },
+          error: (err) => {
+            this.openSnackBar('Ошибка при удалении!', 'Ок');
+          },
+          complete: () => {
+            
+          }
+        }); 
       }
-    });  
+    }); 
   }
 
   openSnackBar(message: string, action: string) {
@@ -301,5 +313,13 @@ export class AboutGroupComponent implements OnInit {
         
       }
     }); 
+  }
+
+  onYesClick() {
+    this.dialogRef.close('yes');
+  }
+
+  onNoClick() {
+    this.dialogRef.close('no');
   }
 }

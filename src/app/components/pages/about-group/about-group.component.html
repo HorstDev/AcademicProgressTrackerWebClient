@@ -138,3 +138,11 @@
     <button (click)="uploadDependenciesForSelectedGroupWithJson()" mat-button cdkFocusInitial>Выбрать</button>
   </mat-dialog-actions>
 </ng-template>
+
+<ng-template #dialogDeleteTemplate>
+  <h2 mat-dialog-title>Вы уверены, что хотите исключить студента из группы?</h2>
+  <mat-dialog-actions>
+    <button (click)="onNoClick()" mat-button cdkFocusInitial>Отмена</button>
+    <button (click)="onYesClick()" mat-button cdkFocusInitial>Удалить</button>
+  </mat-dialog-actions>
+</ng-template>

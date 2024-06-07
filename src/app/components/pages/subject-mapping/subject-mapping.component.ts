@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubjectMapping } from 'src/app/models/subject-mapping';
 import { SubjectService } from 'src/app/services/subject.service';
@@ -15,7 +16,10 @@ export class SubjectMappingComponent implements OnInit {
 
   subjectMappings: SubjectMapping[] = [];
 
-  constructor(private _subjectService: SubjectService, private snackBar: MatSnackBar) { }
+  dialogRef!: MatDialogRef<any>;
+
+  constructor(private _subjectService: SubjectService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
 
   ngOnInit(): void {
     this.setAllSubjectMappings();
@@ -78,17 +82,26 @@ export class SubjectMappingComponent implements OnInit {
   }
 
   deleteSubjectMapping(subjectMappingId: string): void {
-    this._subjectService.deleteSubjectMapping(subjectMappingId).subscribe({
-      next: () => {
-        this.setAllSubjectMappings();
-      },
-      error: (err) => {
-        this.openSnackBar('Ошибка при удалении', 'Ок');
-      },
-      complete: () => {
+    this.dialogRef = this.dialog.open(this.dialogTemplate, {
+      width: '250px',
+      data: {  }
+    });
 
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result === 'yes') {
+        this._subjectService.deleteSubjectMapping(subjectMappingId).subscribe({
+          next: () => {
+            this.setAllSubjectMappings();
+          },
+          error: (err) => {
+            this.openSnackBar('Ошибка при удалении', 'Ок');
+          },
+          complete: () => {
+    
+          }
+        });  
       }
-    });     
+    });   
   }
 
   openSnackBar(message: string, action: string) {
@@ -97,5 +110,13 @@ export class SubjectMappingComponent implements OnInit {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
+  }
+
+  onYesClick() {
+    this.dialogRef.close('yes');
+  }
+
+  onNoClick() {
+    this.dialogRef.close('no');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, catchError, debounceTime, map, of, startWith, switchMap  } from 'rxjs';
@@ -15,6 +15,8 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class GroupManagementComponent implements OnInit {
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  @ViewChild('dialogDeleteTemplate') dialogDeleteTemplate!: TemplateRef<any>;
+  dialogRef!: MatDialogRef<any>;
 
   groupNameToAdd: string | null = null;
   curriculumFileToAdd: File | null = null;
@@ -110,17 +112,26 @@ export class GroupManagementComponent implements OnInit {
   }
 
   deleteGroup(groupId: string) {
-    this._groupService.deleteGroup(groupId).subscribe({
-      next: () => {
-        this.setGroups();
-      },
-      error: (err) => {
-        this.openSnackBar('Ошибка при удалении', 'Ок');
-      },
-      complete: () => {
-        
+    this.dialogRef = this.dialog.open(this.dialogDeleteTemplate, {
+      width: '250px',
+      data: {  }
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result === 'yes') {
+        this._groupService.deleteGroup(groupId).subscribe({
+          next: () => {
+            this.setGroups();
+          },
+          error: (err) => {
+            this.openSnackBar('Ошибка при удалении', 'Ок');
+          },
+          complete: () => {
+            
+          }
+        });  
       }
-    });     
+    });   
   }
 
   uploadDependenciesForSelectedGroup() {
@@ -169,5 +180,13 @@ export class GroupManagementComponent implements OnInit {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
+  }
+
+  onYesClick() {
+    this.dialogRef.close('yes');
+  }
+
+  onNoClick() {
+    this.dialogRef.close('no');
   }
 }
