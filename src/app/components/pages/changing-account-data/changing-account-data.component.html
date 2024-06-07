@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center align-items-center flex-column">
-    <h5 class="mt-5">Измените свои данные для входа</h5>
+    <h5 class="mt-5">Измените данные для входа</h5>
 
     <div class="form-floating mt-3">
         <input [(ngModel)]="email" type="email" class="form-control" id="floatingInput" placeholder="student@astu.org" required>
@@ -19,6 +19,6 @@
 
     <div *ngIf="isChanged" class="mt-5 d-flex justify-content-center align-items-center flex-column">
         <h5>Данные для входа успешно изменены</h5>
-        <button (click)="goToLoginPage()" class="btn btn-success">Вход</button>
+        <button *ngIf="!isLoggedIn()" (click)="goToLoginPage()" class="btn btn-success">Вход</button>
     </div>
 </div>

@@ -23,6 +23,10 @@ export class UserService {
     return this.http.get<Profile[]>(`${environment.apiUrl}/User/students/${groupId}`);
   }
 
+  public getTeacherProfilesByGroupId(groupId: string) : Observable<Profile[]> {
+    return this.http.get<Profile[]>(`${environment.apiUrl}/User/teachers/${groupId}`);
+  }
+
   public getCuratorProfileByGroupId(groupId: string) : Observable<Profile> {
     return this.http.get<Profile>(`${environment.apiUrl}/User/curator/${groupId}`);
   }

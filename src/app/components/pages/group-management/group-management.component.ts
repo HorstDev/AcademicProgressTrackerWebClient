@@ -1,7 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable, catchError, debounceTime, map, of, startWith, switchMap  } from 'rxjs';
 import { Group } from 'src/app/models/group';
 import { GroupService } from 'src/app/services/group.service';
 
@@ -21,11 +24,48 @@ export class GroupManagementComponent implements OnInit {
   selectedGroupId: string = '';
   currentDate: Date = new Date();
 
+  // Autocomplete
+  myControl = new FormControl('');
+  groupsFromApiTable: Group[] = [];
+  filteredGroupsFromApiTable?: Observable<Group[]>;
+
   constructor(private snackBar: MatSnackBar, private _groupService: GroupService, private dialog: MatDialog, private _router: Router) {}
 
   ngOnInit(): void {
-    this.setGroups()
+    this.setGroups();
+
+    this.filteredGroupsFromApiTable = this.myControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(500), // Ожидание ввода в течение 2 секунд
+      switchMap(value => this.setGroupsFromApiTable(value || '')), // Вызов метода для запроса на сервер и получения нового списка
+    );
+
+    // Обработка изменений в поле ввода
+    this.myControl.valueChanges.subscribe(value => {
+      this.groupNameToAdd = value; // Обновляем значение при ручном вводе
+    });
   }
+
+  setGroupsFromApiTable(value: string): Observable<Group[]> {
+    return this._groupService.getFiveGroupsFromApiTableBySubstring(value).pipe(
+      map((teacherProfilesFromServer: Group[]) => {
+        return teacherProfilesFromServer;
+      }),
+      catchError((err) => {
+        console.error('Error fetching teacher profiles:', err);
+        return of([]); // Возвращаем пустой массив в случае ошибки
+      })
+    );
+  }
+
+  onOptionSelected(event: MatAutocompleteSelectedEvent): void {
+    this.groupNameToAdd = event.option.value.name;
+  }
+
+  displayFn(group: Group): string {
+    return group ? group.name : '';
+  }
+
 
   onFileSelected(event: any) {
     this.curriculumFileToAdd = event.target.files[0];
@@ -69,6 +109,20 @@ export class GroupManagementComponent implements OnInit {
     });     
   }
 
+  deleteGroup(groupId: string) {
+    this._groupService.deleteGroup(groupId).subscribe({
+      next: () => {
+        this.setGroups();
+      },
+      error: (err) => {
+        this.openSnackBar('Ошибка при удалении', 'Ок');
+      },
+      complete: () => {
+        
+      }
+    });     
+  }
+
   uploadDependenciesForSelectedGroup() {
     if (this.selectedDate == null) {
       this.openSnackBar('Ошибка! Не выбрана дата!', 'Ок');
@@ -76,7 +130,7 @@ export class GroupManagementComponent implements OnInit {
     else {
       this.dialog.closeAll();
 
-      this._groupService.uploadDependenciesForGroup(this.selectedGroupId).subscribe({
+      this._groupService.uploadDependenciesForGroup(this.selectedGroupId, this.selectedDate).subscribe({
         next: () => {
           this.openSnackBar('Успешно загружено!', 'Ок');
           this.setGroups();

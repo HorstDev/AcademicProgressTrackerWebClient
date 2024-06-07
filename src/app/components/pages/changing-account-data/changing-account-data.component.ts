@@ -59,4 +59,8 @@ export class ChangingAccountDataComponent implements OnInit {
       verticalPosition: 'bottom',
     });
   }
+
+  isLoggedIn(): boolean {
+    return this._authService.loggedIn();
+  }
 }

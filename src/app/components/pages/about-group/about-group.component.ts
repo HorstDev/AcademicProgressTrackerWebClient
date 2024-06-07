@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, catchError, debounceTime, map, of, startWith, switchMap } from 'rxjs';
@@ -18,22 +20,28 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./about-group.component.scss']
 })
 export class AboutGroupComponent implements OnInit {
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  @ViewChild('dialogTemplateJson') dialogTemplateJson!: TemplateRef<any>;
   // Autocomplete
   myControl = new FormControl('');
-  teacherProfiles: Profile[] = [];
-  filteredTeacherProfiles?: Observable<Profile[]>;
+  curatorProfiles: Profile[] = [];
+  filteredCuratorProfiles?: Observable<Profile[]>;
 
   // Other
   groupId: string = '';
   group: Group | null = null;
   studentNameToAdd: string = '';
   students: Profile[] = [];
+  teachers: Profile[] = [];
   curator: Profile | null = null;
   subjects: Subject[] = [];
 
+  selectedDate: Date | null = null;
+  jsonFileFromApiTable: File | null = null;
+
   constructor(private _route: ActivatedRoute, private _userService: UserService,
     private _groupService: GroupService, private snackBar: MatSnackBar, private _authService: AuthService,
-    private _subjectService: SubjectService
+    private _subjectService: SubjectService, private dialog: MatDialog, private clipboard: Clipboard
   ) { }
 
   ngOnInit(): void {
@@ -41,18 +49,19 @@ export class AboutGroupComponent implements OnInit {
       this.groupId = params['groupId'];
       this.setGroup();
       this.setStudentProfiles();
+      this.setTeacherProfiles();
       this.setCuratorProfile();
       this.setSubjects();
     });
 
-    this.filteredTeacherProfiles = this.myControl.valueChanges.pipe(
+    this.filteredCuratorProfiles = this.myControl.valueChanges.pipe(
       startWith(''),
       debounceTime(500), // Ожидание ввода в течение 2 секунд
-      switchMap(value => this.setTeacherProfiles(value || '')), // Вызов метода для запроса на сервер и получения нового списка
+      switchMap(value => this.setCuratorProfiles(value || '')), // Вызов метода для запроса на сервер и получения нового списка
     );
   }
 
-  setTeacherProfiles(value: string): Observable<Profile[]> {
+  setCuratorProfiles(value: string): Observable<Profile[]> {
     return this._userService.getTeacherProfilesBySubstringName(value).pipe(
       map((teacherProfilesFromServer: Profile[]) => {
         return teacherProfilesFromServer;
@@ -92,6 +101,20 @@ export class AboutGroupComponent implements OnInit {
     this._userService.getStudentProfilesByGroupId(this.groupId).subscribe({
       next: (studentProfilesFromServer: Profile[]) => {
         this.students = studentProfilesFromServer;
+      },
+      error: (err) => {
+        
+      },
+      complete: () => {
+        
+      }
+    });  
+  }
+
+  setTeacherProfiles() {
+    this._userService.getTeacherProfilesByGroupId(this.groupId).subscribe({
+      next: (teacherProfilesFromServer: Profile[]) => {
+        this.teachers = teacherProfilesFromServer;
       },
       error: (err) => {
         
@@ -184,5 +207,99 @@ export class AboutGroupComponent implements OnInit {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
+  }
+
+  onDateChange(event: any) {
+    this.selectedDate = event.value;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      width: '250px',
+      data: {  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Обработка закрытия диалога
+    });
+  }
+
+  uploadDependenciesForSelectedGroup() {
+    if (this.selectedDate == null) {
+      this.openSnackBar('Ошибка! Не выбрана дата!', 'Ок');
+    }
+    else {
+      this.dialog.closeAll();
+
+      this._groupService.uploadDependenciesForGroup(this.groupId, this.selectedDate).subscribe({
+        next: () => {
+          this.openSnackBar('Успешно загружено!', 'Ок');
+          this.setSubjects();
+          this.setTeacherProfiles();
+        },
+        error: (err) => {
+          this.openSnackBar(err.error.message, 'Ок');
+        },
+        complete: () => {
+          
+        }
+      }); 
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.jsonFileFromApiTable = event.target.files[0];
+  }
+
+  openDialogWithJson(): void {
+    const dialogRef = this.dialog.open(this.dialogTemplateJson, {
+      width: '350px',
+      data: {  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Обработка закрытия диалога
+    });
+  }
+
+  uploadDependenciesForSelectedGroupWithJson() {
+    if (this.selectedDate == null || this.jsonFileFromApiTable == null) {
+      this.openSnackBar('Ошибка! Недостаточно данных!', 'Ок');
+    }
+    else {
+      this.dialog.closeAll();
+
+      this._groupService.uploadDependenciesForGroupFromJSONApiTable(this.groupId, this.selectedDate, this.jsonFileFromApiTable).subscribe({
+        next: () => {
+          this.openSnackBar('Успешно загружено!', 'Ок');
+          this.setSubjects();
+        },
+        error: (err) => {
+          this.openSnackBar(err.error.message, 'Ок');
+        },
+        complete: () => {
+          
+        }
+      }); 
+    }
+  }
+
+  setPasswordResetLink(userId: string) {
+    this._authService.getAuthTokenFor48Hours(userId).subscribe({
+      next: (authToken: string) => {
+        const relativeUrl = '/changing-account-data';
+        const passwordResetLinkForSelectedUser = `${window.location.origin}${relativeUrl}?token=${authToken}`;
+        this.clipboard.copy(passwordResetLinkForSelectedUser);
+        this.openSnackBar('Ссылка для смены пароля скопирована в буфер обмена!', 'Ок');
+      },
+      error: (err) => {
+        this.openSnackBar('Ошибка. Токен получить не удалось', 'Ок');
+      },
+      complete: () => {
+        
+      }
+    }); 
   }
 }
