@@ -26,7 +26,7 @@ export class LoginComponent {
       else if (roles?.includes('Teacher'))
         this._router.navigate(['/lesson-tracker']);
       else
-        this._router.navigate(['/qr-ticket']);
+        this._router.navigate(['/report-student']);
     }
   }
 
@@ -55,7 +55,7 @@ export class LoginComponent {
           else if (roles?.includes('Teacher'))
             this._router.navigate(['/lesson-tracker']);
           else
-            this._router.navigate(['/qr-ticket']);
+            this._router.navigate(['/report-student']);
         }
       },
       error: (err) => {

@@ -13,6 +13,7 @@ import { QrCodeViewerComponent } from './components/pages/qr-code-viewer/qr-code
 import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
 import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
+import { ReportStudentComponent } from './components/pages/report-student/report-student.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'qr-ticket', component: QrCodeViewerComponent },
     { path: 'subject-mapping', component: SubjectMappingComponent },
     { path: 'report-group', component: ReportGroupComponent },
+    { path: 'report-student', component: ReportStudentComponent },
   ] }, 
   { path: 'login', component: LoginComponent },
   { path: 'changing-account-data', component: ChangingAccountDataComponent }, 

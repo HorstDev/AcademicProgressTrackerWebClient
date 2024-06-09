@@ -10,9 +10,9 @@
         <td style="border-bottom: 1px solid black;">{{userLabWorkStatuses.name}}</td>
         <td style="border-bottom: 1px solid black;">
             <div style="display:inline" *ngFor="let labWorkStatus of userLabWorkStatuses.labWorkUserStatuses">
-                <button *ngIf="labWorkStatus.isDone else labWorkIsNotDone" (click)="changeUserLabWorkStatus(labWorkStatus.id)" class="lab-status-done-button">{{labWorkStatus.number}}</button>
+                <button *ngIf="labWorkStatus.isDone else labWorkIsNotDone" (click)="changeUserLabWorkStatus(labWorkStatus.id)" class="lab-status-done">{{labWorkStatus.number}}</button>
                 <ng-template #labWorkIsNotDone>
-                    <button (click)="changeUserLabWorkStatus(labWorkStatus.id)" class="lab-status-not-done-button">{{labWorkStatus.number}}</button>
+                    <button (click)="changeUserLabWorkStatus(labWorkStatus.id)" class="lab-status-not-done">{{labWorkStatus.number}}</button>
                 </ng-template>
             </div>
         </td>

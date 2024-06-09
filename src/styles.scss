@@ -295,6 +295,32 @@ a, .btn-link {
                 color: #426696;
             }
 
+.lab-status-done {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #30BA8F;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 0.2rem;
+}
+
+.lab-status-not-done {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: grey;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 0.2rem;
+}
+
 @media (max-width: 640px) {
     .schedule-right-side {
         display: none;

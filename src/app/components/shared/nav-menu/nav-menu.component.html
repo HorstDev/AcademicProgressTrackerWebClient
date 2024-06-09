@@ -16,27 +16,27 @@
 
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Admin')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="group-management">
-                <span class="oi oi-home" aria-hidden="true"></span> Группы
+                <span class="oi oi-list" aria-hidden="true"></span> Группы
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Admin')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="user-management">
-                <span class="oi oi-home" aria-hidden="true"></span> Пользователи
+                <span class="oi oi-people" aria-hidden="true"></span> Пользователи
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Admin')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="subject-mapping">
-                <span class="oi oi-home" aria-hidden="true"></span> Маппинг предметов
+                <span class="oi oi-transfer" aria-hidden="true"></span> Маппинг предметов
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="lesson-tracker">
-                <span class="oi oi-people" aria-hidden="true"></span> Трекер занятий
+                <span class="oi oi-clock" aria-hidden="true"></span> Трекер занятий
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="lab-management">
-                <span class="oi oi-crop" aria-hidden="true"></span> Лабораторные работы
+                <span class="oi oi-list" aria-hidden="true"></span> Лабораторные работы
             </a>
         </div>
         <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
@@ -46,14 +46,19 @@
         </div> -->
         <div class="nav-item px-3" *ngIf="userRoles && (userRoles.includes('Admin') || userRoles.includes('Teacher'))">
             <a class="nav-link" routerLinkActive="active-link" routerLink="report-group">
-                <span class="oi oi-people" aria-hidden="true"></span> Отчеты
+                <span class="oi oi-calculator" aria-hidden="true"></span> Отчеты
             </a>
         </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Student')">
-            <a class="nav-link" routerLinkActive="active-link" routerLink="qr-ticket">
-                <span class="oi oi-home" aria-hidden="true"></span> QR-пропуск
+            <a class="nav-link" routerLinkActive="active-link" routerLink="report-student">
+                <span class="oi oi-book" aria-hidden="true"></span> Моя успеваемость
             </a>
         </div>
+        <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Student')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="qr-ticket">
+                <span class="oi oi-key" aria-hidden="true"></span> QR-пропуск
+            </a>
+        </div> -->
     </nav>
 
     <div class="footer">
@@ -65,25 +70,20 @@
             </div>
         </a> -->
 
-        <div *ngIf="!_authService.loggedIn(); else loggedIn">
-            <hr style="margin: 5px 0px;" />
-            <a href="https://t.me/HorstS" target="_blank">
-                <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
-                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">Разработал Горст С.<br />ИИТИК АГТУ</h5>
-                </div>
-            </a>
-        </div>
-
-        <ng-template #loggedIn>
-            <div class="d-flex">
-                <div class="mobile-advertisement" style="padding: 0.5rem; margin-top: 0;">
-                    <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">{{userLogin}}</h5>
-                </div>
-                <div>
-                    <button (click)="_authService.logout()" mat-flat-button>Выйти</button>
-                </div>
+        <div class="d-flex" style="justify-content: space-between;">
+            <div class="mobile-advertisement" style="padding: 0.5rem; margin: 0; padding: 0">
+                <!-- <h5 style="width: 100%; text-align: center; margin: 0; font-size: 11px">{{userLogin}}</h5> -->
+                <h5 *ngIf="userRoles && userRoles.includes('Admin')" style="width: 100%; text-align: center; margin-top: 1.2rem; font-size: 11px">Вы - администратор</h5>
+                <h5 *ngIf="userRoles && userRoles.includes('Teacher')" style="width: 100%; text-align: center; margin-top: 1.2rem; font-size: 11px">Вы - преподаватель</h5>
+                <h5 *ngIf="userRoles && userRoles.includes('Student')" style="width: 100%; text-align: center; margin-top: 1.2rem; font-size: 11px">Вы - студент</h5>
             </div>
-        </ng-template>
+            <div>
+                <!-- <button (click)="_authService.logout()" mat-flat-button>Выйти</button> -->
+                <button (click)="_authService.logout()" mat-icon-button color="accent" style="color: white;">
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
 
 </div>

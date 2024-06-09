@@ -5,10 +5,6 @@
   }
 
   .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     padding: 0.4rem 1.1rem;
     text-align: center;
     font-size: 0.7rem;
@@ -100,14 +96,18 @@
 }
 
 @media (max-width: 640px) {
-    .footer {
-        display: none;
-    }
 }
 
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 
     .collapse {
