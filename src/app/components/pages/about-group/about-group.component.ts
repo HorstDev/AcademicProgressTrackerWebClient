@@ -287,6 +287,7 @@ export class AboutGroupComponent implements OnInit {
         next: () => {
           this.openSnackBar('Успешно загружено!', 'Ок');
           this.setSubjects();
+          this.setTeacherProfiles();
         },
         error: (err) => {
           this.openSnackBar(err.error.message, 'Ок');
