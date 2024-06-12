@@ -45,7 +45,12 @@
           <tr *ngFor="let group of groups">
             <td style="border-bottom: 1px solid #426696;">{{group.name}}</td>
             <td style="border-bottom: 1px solid #426696;">
-              {{group.dateTimeOfUpdateDependenciesFromServer | date: 'dd/MM/yyyy, HH:mm':'GMT'}}
+              <ng-container *ngIf="dateIsExists(group.dateTimeOfUpdateDependenciesFromServer!.toString()); else noDateTemplate">
+                {{group.dateTimeOfUpdateDependenciesFromServer | date: 'dd/MM/yyyy, HH:mm':'GMT'}}
+              </ng-container>
+              <ng-template #noDateTemplate>
+                <b style="color: red">Семестр не загружался</b>
+              </ng-template>
             </td>
             <td style="border-bottom: 1px solid #426696;">
               <button style="margin-right: 0.5rem;" (click)="openDialog(group.id)" mat-raised-button color="primary">Загрузить семестр</button>

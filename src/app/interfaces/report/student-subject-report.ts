@@ -7,4 +7,5 @@ export interface StudentSubjectReport {
     startedLessonCount: number;
     labWorkUserStatuses: LabWorkStatusData[];
     labWorkNumberShouldDone: number;
+    labWorksShouldExist: boolean
 }

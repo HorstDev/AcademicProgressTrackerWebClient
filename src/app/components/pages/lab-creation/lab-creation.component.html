@@ -14,7 +14,7 @@
           </div>
   
           <p style="margin: 0; font-size: 0.8rem;">Привяжите занятия к ЛР:</p>
-          <div class="d-flex mb-2">
+          <div class="d-flex mb-2" style="flex-wrap: wrap;">
             <div *ngFor="let labLesson of labLessons">
               <div *ngIf="!isCheckboxDisabled(labLesson.id)">
                 <button *ngIf="isCheckboxSelected(labLesson.id) else notSelected" (click)="onCheckboxChange(labLesson.id)" class="selected-lesson">{{labLesson.number + 1}}</button>

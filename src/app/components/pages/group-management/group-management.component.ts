@@ -189,4 +189,13 @@ export class GroupManagementComponent implements OnInit {
   onNoClick() {
     this.dialogRef.close('no');
   }
+
+  dateIsExists(dateString?: string): boolean {
+    if (!dateString) {
+      return false; // Если строка пустая или неопределена, возвращаем false
+    }
+  
+    const date = new Date(dateString);
+    return date.getFullYear() !== 1;
+  }
 }

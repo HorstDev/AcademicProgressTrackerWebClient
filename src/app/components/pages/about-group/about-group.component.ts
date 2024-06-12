@@ -249,6 +249,7 @@ export class AboutGroupComponent implements OnInit {
           this.openSnackBar('Успешно загружено!', 'Ок');
           this.setSubjects();
           this.setTeacherProfiles();
+          this.setGroup();
         },
         error: (err) => {
           this.openSnackBar(err.error.message, 'Ок');
@@ -288,6 +289,7 @@ export class AboutGroupComponent implements OnInit {
           this.openSnackBar('Успешно загружено!', 'Ок');
           this.setSubjects();
           this.setTeacherProfiles();
+          this.setGroup();
         },
         error: (err) => {
           this.openSnackBar(err.error.message, 'Ок');

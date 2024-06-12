@@ -28,7 +28,10 @@
                 </div>
             </div>
             <ng-template #noLabs>
-                <p style="color: #426696;">Лабораторные работы отсутствуют!</p>
+                <p *ngIf="subjectReport.labWorksShouldExist else notShouldExist" style="color: red;">Преподаватель не создал лабораторные работы!</p>
+                <ng-template #notShouldExist>
+                    <p style="color: #426696">Лабораторные работы отсутствуют</p>
+                </ng-template>
             </ng-template>
         </td>
       </tr>
@@ -38,13 +41,15 @@
 <div class="d-flex justify-content-center align-items-center flex-column mt-5 mb-3">
     <h5>Соответствие с сроками выполнения лабораторных работ (на {{currentDate | date:'dd.MM.yyyy'}})</h5>
 </div>
-<div *ngFor="let subjectReport of report">
-    <div *ngIf="subjectReport.labWorkUserStatuses.length > 0">
-        <div *ngIf="meetsDeadline(subjectReport.labWorkUserStatuses, subjectReport.labWorkNumberShouldDone) else noSuccessful">
-            <b style="color: #426696">{{subjectReport.subjectName}}:</b> Работ выполнено: {{lengthOfDoneLabWorks(subjectReport.labWorkUserStatuses)}}. На данный момент должно быть выполнено минимум {{subjectReport.labWorkNumberShouldDone}} - <span class="oi oi-check" style="color: green; font-size: 1rem;" aria-hidden="true"></span>
+<div class="mb-3">
+    <div *ngFor="let subjectReport of report">
+        <div *ngIf="subjectReport.labWorkUserStatuses.length > 0">
+            <div *ngIf="meetsDeadline(subjectReport.labWorkUserStatuses, subjectReport.labWorkNumberShouldDone) else noSuccessful">
+                <b style="color: #426696">{{subjectReport.subjectName}}:</b> Работ выполнено: {{lengthOfDoneLabWorks(subjectReport.labWorkUserStatuses)}}. На данный момент должно быть выполнено минимум {{subjectReport.labWorkNumberShouldDone}} - <span class="oi oi-check" style="color: green; font-size: 1rem;" aria-hidden="true"></span>
+            </div>
+            <ng-template #noSuccessful>
+                <b style="color: #426696">{{subjectReport.subjectName}}:</b> Работ выполнено: {{lengthOfDoneLabWorks(subjectReport.labWorkUserStatuses)}}. На данный момент должно быть выполнено минимум {{subjectReport.labWorkNumberShouldDone}} - <span class="oi oi-x" style="color: red; font-size: 1rem;" aria-hidden="true"></span>
+            </ng-template>
         </div>
-        <ng-template #noSuccessful>
-            <b style="color: #426696">{{subjectReport.subjectName}}:</b> Работ выполнено: {{lengthOfDoneLabWorks(subjectReport.labWorkUserStatuses)}}. На данный момент должно быть выполнено минимум {{subjectReport.labWorkNumberShouldDone}} - <span class="oi oi-x" style="color: red; font-size: 1rem;" aria-hidden="true"></span>
-        </ng-template>
     </div>
 </div>
