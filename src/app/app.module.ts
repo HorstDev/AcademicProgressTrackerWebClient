@@ -45,6 +45,12 @@ import { AboutGroupComponent } from './components/pages/about-group/about-group.
 import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
 import { ReportStudentComponent } from './components/pages/report-student/report-student.component';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,6 +104,7 @@ import { ReportStudentComponent } from './components/pages/report-student/report
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     DatePipe,
     MatSnackBarModule,
   ],

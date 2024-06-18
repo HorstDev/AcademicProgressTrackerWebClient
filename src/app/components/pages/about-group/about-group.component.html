@@ -121,7 +121,7 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-dialog-actions>
-    <button (click)="uploadDependenciesForSelectedGroup()" mat-button cdkFocusInitial>Выбрать</button>
+    <button (click)="uploadDependenciesForSelectedGroup()" mat-button cdkFocusInitial>Загрузить</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -135,7 +135,7 @@
   </mat-form-field>
   <input (change)="onFileSelected($event)" type="file" id="fileInput" accept=".txt,.json">
   <mat-dialog-actions>
-    <button (click)="uploadDependenciesForSelectedGroupWithJson()" mat-button cdkFocusInitial>Выбрать</button>
+    <button (click)="uploadDependenciesForSelectedGroupWithJson()" mat-button cdkFocusInitial>Загрузить</button>
   </mat-dialog-actions>
 </ng-template>
 
