@@ -85,7 +85,7 @@ export class GroupManagementComponent implements OnInit {
           this.setGroups()
         },
         error: (err) => {
-          
+          this.openSnackBar('Ошибка при добавлении!', 'Ок');
         },
         complete: () => {
           

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserLoginData } from 'src/app/interfaces/user/user-login-data';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,7 +17,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
   isLoading: boolean = false;
 
-  constructor(private _authService: AuthService, private _router: Router) {}
+  constructor(private _authService: AuthService, private _router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     if (this._authService.loggedIn()) {
@@ -59,7 +60,7 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        this.errorMessage = 'не удалось залогинить';
+        this.openSnackBar('Не удалось войти в систему!', 'Ок')
         this.isLoading = false;
       },
       complete: () => {
@@ -94,6 +95,14 @@ export class LoginComponent {
   refresh() {
     this._authService.refreshToken().subscribe((token: string) => {
       localStorage.setItem('authToken', token);
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
     });
   }
 }
