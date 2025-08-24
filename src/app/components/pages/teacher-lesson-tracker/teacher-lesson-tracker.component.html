@@ -84,7 +84,7 @@
                 <div (click)="removeLessonFromLessonsStart(lesson)" class="lesson">
                     <div class="about-lesson">
                         <div class="item-about-lesson item-about-lesson-time">
-                            {{lesson.start | date: 'HH:mm':'GMT'}} - {{lesson.end | date: 'HH:mm':'GMT'}}
+                            {{lesson.start | date: 'HH:mm'}} - {{lesson.end | date: 'HH:mm'}}
                         </div>
                         <div *ngIf="lesson.type === 'LectureLesson'" class="item-about-lesson item-about-lesson-type item-about-lesson-type-lecture">
                             лекция
@@ -130,7 +130,7 @@
                     <div (click)="addLessonToLessonsStart(lesson)" class="lesson">
                         <div class="about-lesson">
                             <div class="item-about-lesson item-about-lesson-time">
-                                {{lesson.start | date: 'HH:mm':'GMT'}} - {{lesson.end | date: 'HH:mm':'GMT'}}
+                                {{lesson.start | date: 'HH:mm'}} - {{lesson.end | date: 'HH:mm'}}
                             </div>
                             <div *ngIf="lesson.type === 'LectureLesson'" class="item-about-lesson item-about-lesson-type item-about-lesson-type-lecture">
                                 лекция

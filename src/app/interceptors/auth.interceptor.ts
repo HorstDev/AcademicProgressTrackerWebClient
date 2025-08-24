@@ -25,26 +25,27 @@ export class AuthInterceptor implements HttpInterceptor {
       // При истечении срока токена удаляем токен из localStorage и перенаправляем на страницу входа
       return next.handle(req).pipe(
           catchError((error: HttpErrorResponse) => {
-            if (error.status === 401 && !this.isRefreshed) {
-              // Если ошибку 401 прокинуло обновление refresh токена (он устарел) 
-              if (req.url.includes('/Auth/refresh-token')) {
-                this._authService.logout();
-                this._router.navigate(['/login']);
-                return throwError(() => error);
-              }
+            if (error.status === 401) {
+              this._authService.logout();
+              // // Если ошибку 401 прокинуло обновление refresh токена (он устарел) 
+              // if (req.url.includes('/Auth/refresh-token')) {
+              //   this._authService.logout();
+              //   this._router.navigate(['/login']);
+              //   return throwError(() => error);
+              // }
 
-              // Обновляем токен (refresh и access)
-              return this._authService.refreshToken().pipe(
-                switchMap((newToken: string) => {
-                  localStorage.setItem('authToken', newToken);
+              // // Обновляем токен (refresh и access)
+              // return this._authService.refreshToken().pipe(
+              //   switchMap((newToken: string) => {
+              //     localStorage.setItem('authToken', newToken);
 
-                  const cloneReq = req.clone({
-                    setHeaders: { Authorization: `Bearer ${newToken}` },
-                  });
+              //     const cloneReq = req.clone({
+              //       setHeaders: { Authorization: `Bearer ${newToken}` },
+              //     });
 
-                  return next.handle(cloneReq);
-                }),
-              )
+              //     return next.handle(cloneReq);
+              //   }),
+              // )
             }
           return throwError(() => error);
           })

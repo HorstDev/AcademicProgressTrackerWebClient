@@ -15,7 +15,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.userLogin = this._authService.getLogin();
-    this.userRoles = this._authService.getRoles();
+    this.userRoles = this._authService.getRole();
   }
 
   get navMenuCssClass() : string {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -20,7 +20,7 @@ export class LessonService {
   }
 
   public getCurrentLessons() : Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(`${environment.apiUrl}/Lesson/current-lessons`);
+    return this.http.get<Lesson[]>(`${environment.apiUrl}/lesson/current-lessons`)
   }
 
   public getCurrentLessonStatusForStudent() : Observable<LessonUserStatusData> {
@@ -32,8 +32,13 @@ export class LessonService {
   }
 
   public getLessonsInDay(date: Date) : Observable<Lesson[]> {
-    const dateString = this.datePipe.transform(date, 'yyyy-MM-dd');
-    return this.http.get<Lesson[]>(`${environment.apiUrl}/Lesson/lessons-in-date/${dateString}`);
+    const params = new HttpParams()
+        .set('date', this.datePipe.transform(date, 'yyyy-MM-dd')!);
+    
+    return this.http.get<Lesson[]>(
+        `${environment.apiUrl}/lesson/lessons-in-day`,
+        { params }
+    );
   }
 
   public startLessons(lessons: Lesson[]) : Observable<Lesson[]> {

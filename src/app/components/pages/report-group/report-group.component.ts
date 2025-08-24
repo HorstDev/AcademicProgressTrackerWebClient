@@ -22,8 +22,8 @@ export class ReportGroupComponent implements OnInit {
   constructor(private groupService: GroupService, private reportService: ReportService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.userRoles = this.authService.getRoles();
-    if (this.userRoles && this.userRoles.includes('Admin'))
+    this.userRoles = this.authService.getRole();
+    if (this.userRoles && this.userRoles.includes('ADMIN'))
       this.setAllGroups();
     else
       this.setSupervisedGroup();

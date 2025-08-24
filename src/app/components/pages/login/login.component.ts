@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   user: UserLoginData = {
-    email: '',
+    login: '',
     password: '',
   };
   errorMessage: string | null = null;
@@ -21,10 +21,10 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this._authService.loggedIn()) {
-      const roles = this._authService.getRoles();
-      if (roles?.includes('Admin'))
+      const role = this._authService.getRole();
+      if (role == 'ADMIN')
         this._router.navigate(['/group-management']);
-      else if (roles?.includes('Teacher'))
+      else if (role == 'TEACHER')
         this._router.navigate(['/lesson-tracker']);
       else
         this._router.navigate(['/report-student']);
@@ -47,13 +47,14 @@ export class LoginComponent {
     this.isLoading = true;
 
     this._authService.login(user).subscribe({
-      next: (token: string) => {
-        localStorage.setItem('authToken', token);
+      next: (response) => {
+        
+        localStorage.setItem('authToken', response.token);
         if (this._authService.loggedIn()) {
-          const roles = this._authService.getRoles();
-          if (roles?.includes('Admin'))
+          const role = this._authService.getRole();
+          if (role == 'ADMIN')
             this._router.navigate(['/group-management']);
-          else if (roles?.includes('Teacher'))
+          else if (role == 'TEACHER')
             this._router.navigate(['/lesson-tracker']);
           else
             this._router.navigate(['/report-student']);

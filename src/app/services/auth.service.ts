@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.development';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { UserLoginData } from '../interfaces/user/user-login-data';
+import { AuthenticationResponse } from '../interfaces/auth/authentication-response';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,9 @@ export class AuthService {
     );
   }
 
-  public login(user: UserLoginData) : Observable<string> {
-    return this.http.post(`${environment.apiUrl}/Auth/login`,
-     user, {responseType: 'text', withCredentials: true}
+  public login(user: UserLoginData) : Observable<AuthenticationResponse> {
+    return this.http.post<AuthenticationResponse>(`${environment.apiUrl}/auth/authenticate`,
+     user
     );
   }
 
@@ -47,11 +48,11 @@ export class AuthService {
     return this.http.delete(`${environment.apiUrl}/Auth/${userId}`);
   }
 
-  public getRoles() : string | null {
+  public getRole() : string | null {
     const token = localStorage.getItem('authToken');
     if (token) {
       const decoded : any = jwtDecode(token);
-      return decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      return decoded['role'];
     }
     return null;
   }

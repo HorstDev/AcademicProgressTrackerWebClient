@@ -31,7 +31,7 @@ export class ChangingAccountDataComponent implements OnInit {
     }
 
     const user: UserLoginData = {
-      email: this.email,
+      login: this.email,
       password: this.password
     }
     
