@@ -24,11 +24,11 @@ export class LessonService {
   }
 
   public getCurrentLessonStatusForStudent() : Observable<LessonUserStatusData> {
-    return this.http.get<LessonUserStatusData>(`${environment.apiUrl}/Lesson/active-lesson-status`);
+    return this.http.get<LessonUserStatusData>(`${environment.apiUrl}/lesson/active-lesson-status`);
   }
 
   public getLessonUserStatusesInProgress() : Observable<LessonUserStatusesData[]> {
-    return this.http.get<LessonUserStatusesData[]>(`${environment.apiUrl}/Lesson/lessons-in-progress-user-statuses`);
+    return this.http.get<LessonUserStatusesData[]>(`${environment.apiUrl}/lesson/lessons-in-progress-user-statuses`);
   }
 
   public getLessonsInDay(date: Date) : Observable<Lesson[]> {
@@ -49,20 +49,15 @@ export class LessonService {
   }
 
   public stopLessons(lessons: Lesson[]) : Observable<Lesson[]> {
-    return this.http.put<Lesson[]>(`${environment.apiUrl}/Lesson/stop-lessons`,
-    lessons
-    );
+    const ids = lessons.map(lesson => lesson.id);
+    return this.http.put<Lesson[]>(`${environment.apiUrl}/lesson/stop-lessons`, ids);
   }
 
   public updateLessonStatuses(lessonStatuses: LessonUserStatusData[]) : Observable<LessonUserStatusData[]> {
-    return this.http.put<LessonUserStatusData[]>(`${environment.apiUrl}/Lesson/update-lesson-statuses`,
-    lessonStatuses
-    );
+    return this.http.put<LessonUserStatusData[]>(`${environment.apiUrl}/lesson/update-lesson-statuses`, lessonStatuses);
   }
 
   public checkLessonStatusVisited(lessonStatusId: string) : Observable<LessonUserStatusData> {
-    return this.http.put<LessonUserStatusData>(`${environment.apiUrl}/Lesson/check-lesson-status-visited/${lessonStatusId}`,
-    { }
-    );
+    return this.http.put<LessonUserStatusData>(`${environment.apiUrl}/lesson/check-lesson-status-visited/${lessonStatusId}`, {});
   }
 }

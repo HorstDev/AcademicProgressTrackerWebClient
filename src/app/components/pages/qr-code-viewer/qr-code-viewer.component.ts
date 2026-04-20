@@ -35,7 +35,7 @@ export class QrCodeViewerComponent implements OnInit {
         this.errorQrMessage = null;
       },
       error: (err) => {
-        this.errorQrMessage = err.error.message;
+        this.errorQrMessage = err.error?.message ?? 'Нет активного занятия или произошла ошибка сервера';
       },
       complete: () => {
 
