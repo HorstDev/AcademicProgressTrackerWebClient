@@ -42,8 +42,9 @@ export class LessonService {
   }
 
   public startLessons(lessons: Lesson[]) : Observable<Lesson[]> {
-    return this.http.put<Lesson[]>(`${environment.apiUrl}/Lesson/start-lessons`,
-    lessons
+    const ids = lessons.map(lesson => lesson.id); 
+    return this.http.put<Lesson[]>(`${environment.apiUrl}/lesson/start-lessons`,
+    ids
     );
   }
 
