@@ -34,14 +34,14 @@
                 <span class="oi oi-clock" aria-hidden="true"></span> Трекер занятий
             </a>
         </div>
-        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('TEACHER')">
+        <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('TEACHER')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="lab-management">
                 <span class="oi oi-list" aria-hidden="true"></span> Лабораторные работы
             </a>
-        </div>
+        </div> -->
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('TEACHER')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="discipline-ahp-weights">
-                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Веса показателей (Саати)
+                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Веса показателей
             </a>
         </div>
         <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">

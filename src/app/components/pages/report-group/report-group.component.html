@@ -1,10 +1,10 @@
 
 <div *ngIf="groups.length == 0 else groupsIsExists" class="d-flex justify-content-center align-items-center flex-column mt-5">
-    <div *ngIf="userRoles && userRoles.includes('Admin') else curator">
+    <div *ngIf="userRoles && userRoles.includes('ADMIN') else curator">
         <h1>Группы отсутствуют!</h1>
     </div>
     <ng-template #curator>
-        <h1>Курируемые группы отсутствуют!</h1>
+        <h1>Группы отсутствуют!</h1>
     </ng-template>
 </div>
 
@@ -19,12 +19,12 @@
             </mat-select>
         </mat-form-field>
 
-        <div *ngIf="!selectedGroup && userRoles && userRoles.includes('Admin') else curator" class="d-flex justify-content-center align-items-center flex-column mt-5">
+        <div *ngIf="!selectedGroup && userRoles && userRoles.includes('ADMIN') else curator" class="d-flex justify-content-center align-items-center flex-column mt-5">
             <h1>Выберите одну из групп</h1>
         </div>
         <ng-template #curator>
             <div *ngIf="!selectedGroup">
-                <h1>Выберите одну из курируемых групп</h1>
+                <h1>Выберите одну из ваших групп</h1>
             </div>
         </ng-template>
     </div>
