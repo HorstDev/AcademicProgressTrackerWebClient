@@ -44,6 +44,7 @@ import { SubjectMappingComponent } from './components/pages/subject-mapping/subj
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
 import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
 import { ReportStudentComponent } from './components/pages/report-student/report-student.component';
+import { DisciplineAhpComponent } from './components/pages/discipline-ahp/discipline-ahp.component';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
@@ -71,7 +72,8 @@ registerLocaleData(localeRu);
     SubjectMappingComponent,
     AboutGroupComponent,
     ReportGroupComponent,
-    ReportStudentComponent
+    ReportStudentComponent,
+    DisciplineAhpComponent
   ],
   imports: [
     BrowserModule,

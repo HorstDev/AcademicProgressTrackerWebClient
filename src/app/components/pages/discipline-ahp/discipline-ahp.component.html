@@ -1,0 +1,78 @@
+<div class="page-wrap">
+  <h4 class="title">Матрица парных сравнений (Саати)</h4>
+  <p class="hint">
+    Критерии: <strong>A</strong> — посещаемость, <strong>G</strong> — рейтинговые баллы, <strong>L</strong> — задержка сдачи.
+    Укажите, насколько первый критерий важнее второго по шкале Саати (1/9 … 9).
+  </p>
+
+  <mat-form-field class="discipline-field" *ngIf="!loadingList">
+    <mat-label>Дисциплина</mat-label>
+    <mat-select
+      [value]="selectedDisciplineId"
+      (selectionChange)="onDisciplineChange($event.value)"
+      placeholder="Выберите дисциплину"
+    >
+      <mat-option *ngFor="let d of disciplines" [value]="d.id">
+        {{ d.name }} — {{ d.groupName }} (сем. {{ d.semester }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="loadingList" class="muted">Загрузка списка…</div>
+  <div *ngIf="loadingState" class="muted">Загрузка данных…</div>
+
+  <ng-container *ngIf="state && !loadingState">
+    <section class="matrix-section">
+      <h5>Ваши отношения (над главной диагональю)</h5>
+      <div class="pair-row">
+        <span class="pair-label">A по сравнению с G</span>
+        <mat-form-field appearance="outline" class="pair-select">
+          <mat-label>A : G</mat-label>
+          <mat-select [(ngModel)]="ag" [compareWith]="compareRatio">
+            <mat-option *ngFor="let o of saatyScale" [value]="o.value">{{ o.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="pair-row">
+        <span class="pair-label">A по сравнению с L</span>
+        <mat-form-field appearance="outline" class="pair-select">
+          <mat-label>A : L</mat-label>
+          <mat-select [(ngModel)]="al" [compareWith]="compareRatio">
+            <mat-option *ngFor="let o of saatyScale" [value]="o.value">{{ o.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="pair-row">
+        <span class="pair-label">G по сравнению с L</span>
+        <mat-form-field appearance="outline" class="pair-select">
+          <mat-label>G : L</mat-label>
+          <mat-select [(ngModel)]="gl" [compareWith]="compareRatio">
+            <mat-option *ngFor="let o of saatyScale" [value]="o.value">{{ o.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <table class="matrix-preview">
+        <thead>
+          <tr>
+            <th></th>
+            <th *ngFor="let h of labels">{{ h }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of [0, 1, 2]; let ri = index">
+            <th>{{ labels[ri] }}</th>
+            <td *ngFor="let col of [0, 1, 2]">{{ matrixCell(ri, col) | number : '1.0-3' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="submit()">Сохранить</button>
+        <button mat-stroked-button color="warn" (click)="deleteMine()" *ngIf="state.savedMatrix">
+          Удалить мою матрицу
+        </button>
+      </div>
+    </section>
+  </ng-container>
+</div>

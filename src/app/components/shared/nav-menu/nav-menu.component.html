@@ -39,6 +39,11 @@
                 <span class="oi oi-list" aria-hidden="true"></span> Лабораторные работы
             </a>
         </div>
+        <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('TEACHER')">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="discipline-ahp-weights">
+                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Веса показателей (Саати)
+            </a>
+        </div>
         <!-- <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('Teacher')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="report-group">
                 <span class="oi oi-people" aria-hidden="true"></span> Кураторство

@@ -14,6 +14,7 @@ import { SubjectMappingComponent } from './components/pages/subject-mapping/subj
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
 import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
 import { ReportStudentComponent } from './components/pages/report-student/report-student.component';
+import { DisciplineAhpComponent } from './components/pages/discipline-ahp/discipline-ahp.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect для '/' на '/subjects'
@@ -24,6 +25,7 @@ const routes: Routes = [
       {path: 'lab-statuses/:subjectId', component: LabStatusesComponent },
     ] }, 
     { path: 'lesson-tracker', component: TeacherLessonTrackerComponent },
+    { path: 'discipline-ahp-weights', component: DisciplineAhpComponent },
     { path: 'group-management/about-group/:groupId', component: AboutGroupComponent },
     { path: 'group-management', component: GroupManagementComponent },
     { path: 'user-management', component: UserManagementComponent },
