@@ -54,6 +54,11 @@
                 <span class="oi oi-calculator" aria-hidden="true"></span> Отчеты
             </a>
         </div>
+        <div class="nav-item px-3" *ngIf="userRoles && (userRoles.includes('ADMIN') || userRoles.includes('TEACHER'))">
+            <a class="nav-link" routerLinkActive="active-link" routerLink="report-competency-group">
+                <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Компетенции
+            </a>
+        </div>
         <div class="nav-item px-3" *ngIf="userRoles && userRoles.includes('STUDENT')">
             <a class="nav-link" routerLinkActive="active-link" routerLink="report-student">
                 <span class="oi oi-book" aria-hidden="true"></span> Моя успеваемость

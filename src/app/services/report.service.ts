@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GroupReport } from '../interfaces/report/group-report';
+import { GroupCompetencyReport } from '../interfaces/report/group-competency-report';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { StudentSubjectReport } from '../interfaces/report/student-subject-report';
@@ -18,5 +19,9 @@ export class ReportService {
 
   public getReportForStudent() : Observable<StudentSubjectReport[]> {
     return this.http.get<StudentSubjectReport[]>(`${environment.apiUrl}/Report/student-report`);
+  }
+
+  public getCompetencyMasteryReportForGroup(groupId: string): Observable<GroupCompetencyReport> {
+    return this.http.get<GroupCompetencyReport>(`${environment.apiUrl}/Report/${groupId}/competency-mastery`);
   }
 }

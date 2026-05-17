@@ -1,0 +1,66 @@
+
+<div *ngIf="groups.length == 0 else groupsIsExists" class="d-flex justify-content-center align-items-center flex-column mt-5">
+    <div *ngIf="userRoles && userRoles.includes('ADMIN') else curator">
+        <h1>Группы отсутствуют!</h1>
+    </div>
+    <ng-template #curator>
+        <h1>Группы отсутствуют!</h1>
+    </ng-template>
+</div>
+
+<ng-template #groupsIsExists>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <mat-form-field style="width: 20rem;">
+            <mat-label>Группа</mat-label>
+            <mat-select [(ngModel)]="selectedGroup" name="name" (ngModelChange)="onGroupChange($event)">
+              <mat-option *ngFor="let group of groups" [value]="group">
+                {{group.name}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="!selectedGroup && userRoles && userRoles.includes('ADMIN') else curator" class="d-flex justify-content-center align-items-center flex-column mt-5">
+            <h1>Выберите одну из групп</h1>
+        </div>
+        <ng-template #curator>
+            <div *ngIf="!selectedGroup">
+                <h1>Выберите одну из ваших групп</h1>
+            </div>
+        </ng-template>
+    </div>
+
+    <div *ngIf="report != null">
+        <h5>Отчет по освоению компетенций — группа {{selectedGroup?.name}}</h5>
+        <div class="d-flex">
+            <div>
+                <p style="margin: 0">Процент освоения, ниже которого подсветить:</p>
+                <div class="d-flex mb-3" style="max-width: 400px;">
+                    <input [(ngModel)]="selectedMasteryThreshold" type="number" class="form-control" placeholder="Процент освоения">
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th style="color: #426696; border-bottom: 2px solid;">Студент</th>
+                <th *ngFor="let competency of report.allCompetencies" class="vertical-header" style="color: #426696; border-bottom: 2px solid;">{{competency}}</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let studentReport of report.studentReports">
+              <tr>
+                <td style="color: #426696; border-bottom: 2px solid #426696;">{{studentReport.studentName}}</td>
+                <td *ngFor="let competencyInformation of studentReport.competenciesInformationReport" style="color: #426696; border-bottom: 2px solid;">
+                    <div *ngIf="competencyInformation.masteryPercent >= selectedMasteryThreshold else badMastery" style="margin: 0;">
+                        <b style="color: green">{{competencyInformation.masteryPercent | number:'1.1-1'}}%</b>
+                    </div>
+                    <ng-template #badMastery>
+                        <p style="margin: 0;"><b style="color: red">{{competencyInformation.masteryPercent | number:'1.1-1'}}%</b></p>
+                    </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+    </div>
+</ng-template>

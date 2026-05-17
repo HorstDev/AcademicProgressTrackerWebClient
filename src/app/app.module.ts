@@ -43,6 +43,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SubjectMappingComponent } from './components/pages/subject-mapping/subject-mapping.component';
 import { AboutGroupComponent } from './components/pages/about-group/about-group.component';
 import { ReportGroupComponent } from './components/pages/report-group/report-group.component';
+import { ReportCompetencyGroupComponent } from './components/pages/report-competency-group/report-competency-group.component';
 import { ReportStudentComponent } from './components/pages/report-student/report-student.component';
 import { DisciplineAhpComponent } from './components/pages/discipline-ahp/discipline-ahp.component';
 
@@ -72,6 +73,7 @@ registerLocaleData(localeRu);
     SubjectMappingComponent,
     AboutGroupComponent,
     ReportGroupComponent,
+    ReportCompetencyGroupComponent,
     ReportStudentComponent,
     DisciplineAhpComponent
   ],
