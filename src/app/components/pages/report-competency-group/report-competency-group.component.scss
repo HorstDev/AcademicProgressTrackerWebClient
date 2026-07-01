@@ -10,3 +10,31 @@
     text-align: left;
     height: 150px;
 }
+
+.mastery-filters-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.mastery-filters-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.mastery-filter-btn--active {
+    background: #fff8e1;
+    border-color: #f9a825;
+    color: #e65100;
+}
+
+.mastery-cell {
+    display: inline-block;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+}
+
+.mastery-cell--highlighted {
+    background: #ffe082;
+    color: #e65100;
+}

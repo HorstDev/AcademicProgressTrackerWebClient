@@ -31,12 +31,19 @@
 
     <div *ngIf="report != null">
         <h5>Отчет по освоению компетенций — группа {{selectedGroup?.name}}</h5>
-        <div class="d-flex">
-            <div>
-                <p style="margin: 0">Процент освоения, ниже которого подсветить:</p>
-                <div class="d-flex mb-3" style="max-width: 400px;">
-                    <input [(ngModel)]="selectedMasteryThreshold" type="number" class="form-control" placeholder="Процент освоения">
-                </div>
+        <div class="mastery-filters mb-3">
+            <p class="mastery-filters-label">Подсветить статус освоения:</p>
+            <div class="mastery-filters-buttons">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    *ngFor="let level of masteryLevels"
+                    class="mastery-filter-btn"
+                    [class.mastery-filter-btn--active]="selectedMasteryLevel === level.id"
+                    (click)="toggleMasteryLevel(level.id)"
+                >
+                    {{ level.label }} ({{ level.rangeLabel }})
+                </button>
             </div>
         </div>
 
@@ -51,12 +58,12 @@
               <tr>
                 <td style="color: #426696; border-bottom: 2px solid #426696;">{{studentReport.studentName}}</td>
                 <td *ngFor="let competencyInformation of studentReport.competenciesInformationReport" style="color: #426696; border-bottom: 2px solid;">
-                    <div *ngIf="competencyInformation.masteryPercent >= selectedMasteryThreshold else badMastery" style="margin: 0;">
-                        <b style="color: green">{{competencyInformation.masteryPercent | number:'1.1-1'}}%</b>
-                    </div>
-                    <ng-template #badMastery>
-                        <p style="margin: 0;"><b style="color: red">{{competencyInformation.masteryPercent | number:'1.1-1'}}%</b></p>
-                    </ng-template>
+                    <span
+                        class="mastery-cell"
+                        [class.mastery-cell--highlighted]="isMasteryHighlighted(competencyInformation.masteryPercent)"
+                    >
+                        <b>{{ competencyInformation.masteryPercent | number:'1.1-1' }}%</b>
+                    </span>
                 </td>
               </tr>
             </tbody>
