@@ -67,8 +67,43 @@
         </tbody>
       </table>
 
+      <section class="aggregated">
+        <h5>Итоговые веса критериев</h5>
+        <p class="weights-vector">
+          w = (
+          {{ ahpResult.weights[0] | number : '1.3-3' }},
+          {{ ahpResult.weights[1] | number : '1.3-3' }},
+          {{ ahpResult.weights[2] | number : '1.3-3' }})
+        </p>
+        <ul class="weights-list">
+          <li>A — посещаемость: {{ ahpResult.weights[0] | percent : '1.1-1' }}</li>
+          <li>G — рейтинг: {{ ahpResult.weights[1] | percent : '1.1-1' }}</li>
+          <li>L — задержка сдачи: {{ ahpResult.weights[2] | percent : '1.1-1' }}</li>
+        </ul>
+        <p class="consistency-line">
+          Отношение согласованности OS =
+          <strong>{{ ahpResult.consistencyRatio | number : '1.3-3' }}</strong>
+          (допустимо OS &le; {{ maxConsistencyRatio }})
+        </p>
+      </section>
+
+      <div class="warnings" *ngIf="!ahpResult.isConsistent">
+        <p>
+          <strong>Матрица не согласована.</strong>
+          OS = {{ ahpResult.consistencyRatio | number : '1.3-3' }} &gt; {{ maxConsistencyRatio }}.
+        </p>
+        <p>Измените парные сравнения и заполните матрицу заново — сохранение недоступно.</p>
+      </div>
+
       <div class="actions">
-        <button mat-raised-button color="primary" (click)="submit()">Сохранить</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="submit()"
+          [disabled]="!ahpResult.isConsistent"
+        >
+          Сохранить
+        </button>
         <button mat-stroked-button color="warn" (click)="deleteMine()" *ngIf="state.savedMatrix">
           Удалить мою матрицу
         </button>

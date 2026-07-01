@@ -5,6 +5,7 @@ import {
   TaughtDisciplineDto,
 } from 'src/app/interfaces/discipline-ahp';
 import { DisciplineAhpService } from 'src/app/services/discipline-ahp.service';
+import { AhpResult, computeAhpResult, MAX_CONSISTENCY_RATIO } from 'src/app/utils/saaty-ahp';
 
 /** Значения шкалы Саати и обратные к ним (отношение важности первого критерия ко второму). */
 export const SAATY_SCALE: { label: string; value: number }[] = [
@@ -47,6 +48,7 @@ export function snapRatioToSaatyScale(value: number): number {
 })
 export class DisciplineAhpComponent implements OnInit {
   readonly saatyScale = SAATY_SCALE;
+  readonly maxConsistencyRatio = MAX_CONSISTENCY_RATIO;
 
   disciplines: TaughtDisciplineDto[] = [];
   selectedDisciplineId: string | null = null;
@@ -116,6 +118,10 @@ export class DisciplineAhpComponent implements OnInit {
     });
   }
 
+  get ahpResult(): AhpResult {
+    return computeAhpResult(this.ag, this.al, this.gl);
+  }
+
   submit(): void {
     if (!this.selectedDisciplineId) {
       return;
@@ -126,6 +132,16 @@ export class DisciplineAhpComponent implements OnInit {
     this.ag = ag;
     this.al = al;
     this.gl = gl;
+
+    const result = computeAhpResult(ag, al, gl);
+    if (!result.isConsistent) {
+      this.snackBar.open(
+        `Матрица не согласована: OS = ${result.consistencyRatio.toFixed(3)} > ${MAX_CONSISTENCY_RATIO}. Заполните сравнения заново.`,
+        'OK',
+        { duration: 7000 }
+      );
+      return;
+    }
     this.disciplineAhpService
       .submitJudgment(this.selectedDisciplineId, {
         attendanceVsRating: ag,

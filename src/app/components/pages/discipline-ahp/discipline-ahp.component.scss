@@ -43,6 +43,26 @@
   }
 }
 
+.weights-vector {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.95rem;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.weights-list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  li {
+    margin: 0.2rem 0;
+  }
+}
+
+.consistency-line {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .matrix-section {
   margin-top: 1.25rem;
 }
