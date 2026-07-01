@@ -157,27 +157,14 @@ export class TeacherLessonTrackerComponent implements OnInit {
     return this.currentLessons.some(lesson => lesson.isStarted);
   }
 
-  // Обновляем статус посещения студентом занятия
-  updateVisitStatus(isSelected: boolean, lessonStatus: LessonUserStatusData): void {
-    lessonStatus.isVisited = isSelected;
-  }
-
-  // Обновление статуса занятия с отправкой на сервер (сделано для того, чтобы сразу при отметке студента производилась отправка)
-  // на сервер без дополнительных нажатий кнопок (может быть затратно для сервера)
   updateVisitStatusWithRequestToServer(isSelected: boolean, lessonStatus: LessonUserStatusData): void {
     lessonStatus.isVisited = isSelected;
-    const arrayOfStatuses: LessonUserStatusData[] = [lessonStatus]
-    this._lessonService.updateLessonStatuses(arrayOfStatuses).subscribe({
-      next: (lessonsStatusesFromServer: LessonUserStatusData[]) => {
-        
-      },
-      error: (err) => {
+    this._lessonService.updateLessonStatuses([lessonStatus]).subscribe({
+      error: () => {
+        lessonStatus.isVisited = !isSelected;
         this.openSnackBar('Ошибка! Не удалось сохранить данные', 'Ок');
       },
-      complete: () => {
-
-      }
-    });  
+    });
   }
 
   onScanSuccess(result: string) {

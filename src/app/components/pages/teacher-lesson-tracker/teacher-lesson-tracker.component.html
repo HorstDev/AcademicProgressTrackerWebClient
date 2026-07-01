@@ -12,15 +12,12 @@
                     <mat-list-option *ngFor="let lessonUserStatusWithUser of lessonUserStatuses.lessonUserStatusesWithUsers"
                         [value]="lessonUserStatusWithUser" 
                         [(selected)]="lessonUserStatusWithUser.lessonUserStatus.isVisited"
-                        (selectedChange)="updateVisitStatus($event, lessonUserStatusWithUser.lessonUserStatus)"
+                        (selectedChange)="updateVisitStatusWithRequestToServer($event, lessonUserStatusWithUser.lessonUserStatus)"
                         color="primary">
                       <p>{{lessonUserStatusWithUser.studentName}}</p>
                       <hr style="margin: 0"/>
                     </mat-list-option>
                 </mat-selection-list>
-            </div>
-            <div class="d-flex justify-content-center align-items-center flex-column mb-2">
-                <button class="btn btn-primary" (click)="updateLessonUserStatuses()">Сохранить</button>
             </div>
         </mat-tab>
         <!-- Баллы -->
